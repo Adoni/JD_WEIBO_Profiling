@@ -183,3 +183,230 @@ F1: 0.71 (+/- 0.12) || Features:('user_embedding_from_path_with_attributes_0.75'
 --------------------
 Feature Count: 1
 F1: 0.72 (+/- 0.11) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 17:02:59.304715
+--------------------
+Feature Count: 1
+F1: 0.53 (+/- 0.04) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 17:04:39.923682
+--------------------
+Feature Count: 1
+F1: 0.50 (+/- 0.04) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 17:06:31.860868
+--------------------
+Feature Count: 1
+F1: 0.51 (+/- 0.05) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 17:09:09.907105
+--------------------
+Feature Count: 1
+F1: 0.52 (+/- 0.06) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 17:11:22.389689
+--------------------
+Feature Count: 1
+F1: 0.53 (+/- 0.06) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:12:18.535564
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:13:15.565171
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:14:03.046535
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:16:01.560120
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:16:14.030412
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:16:59.491216
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:31:22.061694
+--------------------
+Feature Count: 1
+F1: 0.84 (+/- 0.13) || Features:('user_embedding_from_path_with_attributes_0.75',)
+F1: 0.84 (+/- 0.13) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:34:09.118937
+--------------------
+Feature Count: 1
+F1: 0.54 (+/- 0.39) || Features:('user_embedding_from_path_with_attributes_0.75',)
+F1: 0.53 (+/- 0.39) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:35:30.977250
+--------------------
+Feature Count: 1
+F1: 0.91 (+/- 0.01) || Features:('user_embedding_from_path_with_attributes_0.75',)
+F1: 0.91 (+/- 0.02) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:37:01.453283
+--------------------
+Feature Count: 1
+F1: 0.91 (+/- 0.01) || Features:('user_embedding_from_path_with_attributes_0.75',)
+F1: 0.90 (+/- 0.01) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:38:41.014457
+--------------------
+Feature Count: 1
+F1: 0.91 (+/- 0.02) || Features:('user_embedding_from_path_with_attributes_0.75',)
+F1: 0.91 (+/- 0.01) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:42:20.130712
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:42:57.879709
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:43:37.471716
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:44:46.915646
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:45:23.410548
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:46:08.611004
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 19:47:02.570198
+--------------------
+Feature Count: 1
+F1: 0.82 (+/- 0.19) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:48:46.619288
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:51:22.957520
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:52:21.628280
+--------------------
+Feature Count: 1
+F1: 0.89 (+/- 0.06) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:53:49.855549
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:55:09.068733
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:56:44.460336
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 19:58:21.077714
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 20:00:55.858359
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 20:02:48.035499
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 20:04:22.097490
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 20:05:20.951568
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 20:07:18.579129
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 20:10:50.034110
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 20:11:58.517429
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 20:13:06.958463
+--------------------
+Feature Count: 1
+F1: 0.61 (+/- 0.21) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 20:14:00.588275
+--------------------
+Feature Count: 1
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 20:24:34.102175
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 20:26:56.426665
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 20:27:22.594328
+--------------------
+Feature Count: 1
+==============================
+2015-06-03 20:28:51.550748
+--------------------
+Feature Count: 1
+F1: 0.63 (+/- 0.07) || Features:('jd_user_simple',)
+F1: 0.64 (+/- 0.11) || Features:('jd_review_simple',)
+F1: 0.62 (+/- 0.08) || Features:('jd_user_embedding',)
+F1: 0.58 (+/- 0.10) || Features:('jd_user_embedding_with_item_class',)
+F1: 0.61 (+/- 0.09) || Features:('jd_user_embedding_from_review',)
+F1: 0.63 (+/- 0.06) || Features:('graph_embedding_from_shopping_sequence',)
+F1: 0.68 (+/- 0.09) || Features:('graph_embedding_from_review',)
+F1: 0.53 (+/- 0.11) || Features:('graph_embedding_from_user_product',)
+F1: 0.56 (+/- 0.18) || Features:('jd_good_Markov',)
+F1: 0.57 (+/- 0.15) || Features:('jd_good_class1',)
+F1: 0.61 (+/- 0.11) || Features:('jd_good_class2',)
+F1: 0.63 (+/- 0.10) || Features:('jd_good_class3',)
+F1: 0.58 (+/- 0.18) || Features:('jd_review1',)
+F1: 0.61 (+/- 0.14) || Features:('jd_review2',)
+F1: 0.38 (+/- 0.28) || Features:('jd_review_star',)
+F1: 0.57 (+/- 0.34) || Features:('jd_review_length',)
+F1: 0.62 (+/- 0.06) || Features:('jd_user_user_propagate1',)
+F1: 0.59 (+/- 0.12) || Features:('jd_user_user_propagate2',)
+F1: 0.90 (+/- 0.07) || Features:('user_embedding_from_path_with_attributes_1.00',)
+F1: 0.87 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+F1: 0.84 (+/- 0.14) || Features:('user_embedding_from_path_with_attributes_0.50',)
+F1: 0.81 (+/- 0.17) || Features:('user_embedding_from_path_with_attributes_0.25',)
+F1: 0.74 (+/- 0.27) || Features:('user_embedding_from_path_with_attributes_0.00',)

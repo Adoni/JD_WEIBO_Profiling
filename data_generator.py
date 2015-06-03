@@ -290,11 +290,7 @@ def load_user_user_graph_propagate_vector(order):
 def output_simple_matrix(feature_length=10000):
     from pymongo import Connection
     feature_map={}
-    f=open('./product.feature').readlines()
-    key_map=dict()
-    for line in open('./location_class.data'):
-        line=line.replace('\n','').replace('\r','').split(' ')
-        key_map[line[0].decode('utf8')]=int(line[1])
+    f=open('./features/product.feature').readlines()
     for i in range(0,len(f)):
         if i>=feature_length:
             break
@@ -335,7 +331,7 @@ def output_simple_matrix(feature_length=10000):
 def output_simple_review_matrix(feature_length=10000):
     from pymongo import Connection
     feature_map={}
-    f=open('./review_word.feature').readlines()
+    f=open('./features/review_word.feature').readlines()
     for i in range(0,len(f)):
         if i>=feature_length:
             break
@@ -495,7 +491,7 @@ def output_graph_embedding_matrix(file_name1,file_name2,manual=False):
 def output_goods_class_markov_matrix(manual=False):
     from pymongo import Connection
     feature_map={}
-    f=open('./goods_class.feature1').readlines()
+    f=open('./features/goods_class.feature1').readlines()
     tmp_feature=[]
     for index,line in enumerate(f):
         tmp_feature.append(line.decode('utf8').split(' ')[0])
@@ -539,7 +535,7 @@ def output_goods_class_markov_matrix(manual=False):
 def output_goods_class_matrix(order=1):
     from pymongo import Connection
     feature_map={}
-    f=open('./goods_class.feature'+str(order)).readlines()
+    f=open('./features/goods_class.feature'+str(order)).readlines()
     tmp_feature=[]
     for index,line in enumerate(f):
         tmp_feature.append(line.decode('utf8').split(' ')[0])
@@ -584,7 +580,7 @@ def output_review_matrix(order,feature_length=1000):
     feature_map2={}
     index1=0
     index2=0
-    for line in open('./review.feature'):
+    for line in open('./features/review.feature'):
         line=line.decode('utf8')
         line=line.replace('\n','').replace('\r','').split(':')[1].split(',')
         for feature in line:
