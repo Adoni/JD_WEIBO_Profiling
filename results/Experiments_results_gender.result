@@ -1,0 +1,185 @@
+==============================
+2015-06-01 19:37:59.618097
+-------------------
+Feature Count: 1
+F1: 0.52 (+/- 0.16) || Feature: ('jd_user_simple',)
+F1: 0.54 (+/- 0.14) || Feature: ('jd_review_simple',)
+F1: 0.57 (+/- 0.09) || Feature: ('jd_user_embedding',)
+F1: 0.55 (+/- 0.06) || Feature: ('jd_user_embedding_with_item_class',)
+F1: 0.55 (+/- 0.07) || Feature: ('jd_user_embedding_from_review',)
+F1: 0.58 (+/- 0.08) || Feature: ('graph_embedding_from_shopping_sequence',)
+F1: 0.58 (+/- 0.08) || Feature: ('graph_embedding_from_review',)
+F1: 0.61 (+/- 0.06) || Feature: ('graph_embedding_from_user_product',)
+F1: 0.56 (+/- 0.06) || Feature: ('jd_good_Markov',)
+F1: 0.58 (+/- 0.07) || Feature: ('jd_good_class1',)
+F1: 0.59 (+/- 0.10) || Feature: ('jd_good_class2',)
+F1: 0.57 (+/- 0.09) || Feature: ('jd_good_class3',)
+F1: 0.63 (+/- 0.05) || Feature: ('jd_review1',)
+F1: 0.63 (+/- 0.05) || Feature: ('jd_review2',)
+F1: 0.48 (+/- 0.15) || Feature: ('jd_review_star',)
+F1: 0.59 (+/- 0.08) || Feature: ('jd_review_length',)
+F1: 0.60 (+/- 0.05) || Feature: ('jd_user_user_propagate1',)
+F1: 0.60 (+/- 0.06) || Feature: ('jd_user_user_propagate2',)
+
+==============================
+2015-06-01 22:53:41.217153
+-------------------
+Feature Count: 2
+F1: 0.57 (+/- 0.09) || Feature: ('jd_user_embedding', 'jd_user_embedding_with_item_class')
+F1: 0.59 (+/- 0.10) || Feature: ('jd_user_embedding', 'jd_user_embedding_from_review')
+F1: 0.55 (+/- 0.10) || Feature: ('jd_user_embedding', 'graph_embedding_from_shopping_sequence')
+F1: 0.58 (+/- 0.10) || Feature: ('jd_user_embedding', 'graph_embedding_from_review')
+F1: 0.57 (+/- 0.07) || Feature: ('jd_user_embedding', 'graph_embedding_from_user_product')
+F1: 0.57 (+/- 0.09) || Feature: ('jd_user_embedding', 'jd_good_Markov')
+F1: 0.59 (+/- 0.08) || Feature: ('jd_user_embedding', 'jd_good_class1')
+F1: 0.60 (+/- 0.08) || Feature: ('jd_user_embedding', 'jd_good_class2')
+F1: 0.60 (+/- 0.09) || Feature: ('jd_user_embedding', 'jd_good_class3')
+F1: 0.58 (+/- 0.05) || Feature: ('jd_user_embedding', 'jd_review1')
+F1: 0.59 (+/- 0.09) || Feature: ('jd_user_embedding', 'jd_review2')
+F1: 0.58 (+/- 0.06) || Feature: ('jd_user_embedding', 'jd_review_star')
+F1: 0.57 (+/- 0.05) || Feature: ('jd_user_embedding', 'jd_review_length')
+F1: 0.59 (+/- 0.10) || Feature: ('jd_user_embedding', 'jd_user_user_propagate1')
+F1: 0.59 (+/- 0.07) || Feature: ('jd_user_embedding', 'jd_user_user_propagate2')
+F1: 0.55 (+/- 0.09) || Feature: ('jd_user_embedding_with_item_class', 'jd_user_embedding_from_review')
+F1: 0.57 (+/- 0.09) || Feature: ('jd_user_embedding_with_item_class', 'graph_embedding_from_shopping_sequence')
+F1: 0.59 (+/- 0.10) || Feature: ('jd_user_embedding_with_item_class', 'graph_embedding_from_review')
+F1: 0.57 (+/- 0.09) || Feature: ('jd_user_embedding_with_item_class', 'graph_embedding_from_user_product')
+F1: 0.56 (+/- 0.06) || Feature: ('jd_user_embedding_with_item_class', 'jd_good_Markov')
+F1: 0.55 (+/- 0.09) || Feature: ('jd_user_embedding_with_item_class', 'jd_good_class1')
+F1: 0.56 (+/- 0.08) || Feature: ('jd_user_embedding_with_item_class', 'jd_good_class2')
+F1: 0.57 (+/- 0.10) || Feature: ('jd_user_embedding_with_item_class', 'jd_good_class3')
+F1: 0.57 (+/- 0.06) || Feature: ('jd_user_embedding_with_item_class', 'jd_review1')
+F1: 0.58 (+/- 0.08) || Feature: ('jd_user_embedding_with_item_class', 'jd_review2')
+F1: 0.54 (+/- 0.05) || Feature: ('jd_user_embedding_with_item_class', 'jd_review_star')
+F1: 0.57 (+/- 0.07) || Feature: ('jd_user_embedding_with_item_class', 'jd_review_length')
+F1: 0.59 (+/- 0.10) || Feature: ('jd_user_embedding_with_item_class', 'jd_user_user_propagate1')
+F1: 0.58 (+/- 0.11) || Feature: ('jd_user_embedding_with_item_class', 'jd_user_user_propagate2')
+F1: 0.56 (+/- 0.08) || Feature: ('jd_user_embedding_from_review', 'graph_embedding_from_shopping_sequence')
+F1: 0.59 (+/- 0.12) || Feature: ('jd_user_embedding_from_review', 'graph_embedding_from_review')
+F1: 0.60 (+/- 0.07) || Feature: ('jd_user_embedding_from_review', 'graph_embedding_from_user_product')
+F1: 0.55 (+/- 0.05) || Feature: ('jd_user_embedding_from_review', 'jd_good_Markov')
+F1: 0.57 (+/- 0.09) || Feature: ('jd_user_embedding_from_review', 'jd_good_class1')
+F1: 0.57 (+/- 0.06) || Feature: ('jd_user_embedding_from_review', 'jd_good_class2')
+F1: 0.56 (+/- 0.09) || Feature: ('jd_user_embedding_from_review', 'jd_good_class3')
+F1: 0.57 (+/- 0.05) || Feature: ('jd_user_embedding_from_review', 'jd_review1')
+F1: 0.57 (+/- 0.07) || Feature: ('jd_user_embedding_from_review', 'jd_review2')
+F1: 0.54 (+/- 0.06) || Feature: ('jd_user_embedding_from_review', 'jd_review_star')
+F1: 0.58 (+/- 0.07) || Feature: ('jd_user_embedding_from_review', 'jd_review_length')
+F1: 0.59 (+/- 0.08) || Feature: ('jd_user_embedding_from_review', 'jd_user_user_propagate1')
+F1: 0.58 (+/- 0.06) || Feature: ('jd_user_embedding_from_review', 'jd_user_user_propagate2')
+F1: 0.57 (+/- 0.11) || Feature: ('graph_embedding_from_shopping_sequence', 'graph_embedding_from_review')
+F1: 0.57 (+/- 0.08) || Feature: ('graph_embedding_from_shopping_sequence', 'graph_embedding_from_user_product')
+F1: 0.57 (+/- 0.08) || Feature: ('graph_embedding_from_shopping_sequence', 'jd_good_Markov')
+F1: 0.56 (+/- 0.09) || Feature: ('graph_embedding_from_shopping_sequence', 'jd_good_class1')
+F1: 0.57 (+/- 0.07) || Feature: ('graph_embedding_from_shopping_sequence', 'jd_good_class2')
+F1: 0.57 (+/- 0.10) || Feature: ('graph_embedding_from_shopping_sequence', 'jd_good_class3')
+F1: 0.55 (+/- 0.08) || Feature: ('graph_embedding_from_shopping_sequence', 'jd_review1')
+F1: 0.58 (+/- 0.07) || Feature: ('graph_embedding_from_shopping_sequence', 'jd_review2')
+F1: 0.57 (+/- 0.07) || Feature: ('graph_embedding_from_shopping_sequence', 'jd_review_star')
+F1: 0.58 (+/- 0.08) || Feature: ('graph_embedding_from_shopping_sequence', 'jd_review_length')
+F1: 0.59 (+/- 0.10) || Feature: ('graph_embedding_from_shopping_sequence', 'jd_user_user_propagate1')
+F1: 0.57 (+/- 0.09) || Feature: ('graph_embedding_from_shopping_sequence', 'jd_user_user_propagate2')
+F1: 0.59 (+/- 0.09) || Feature: ('graph_embedding_from_review', 'graph_embedding_from_user_product')
+F1: 0.58 (+/- 0.13) || Feature: ('graph_embedding_from_review', 'jd_good_Markov')
+F1: 0.59 (+/- 0.10) || Feature: ('graph_embedding_from_review', 'jd_good_class1')
+F1: 0.58 (+/- 0.14) || Feature: ('graph_embedding_from_review', 'jd_good_class2')
+F1: 0.58 (+/- 0.11) || Feature: ('graph_embedding_from_review', 'jd_good_class3')
+F1: 0.61 (+/- 0.11) || Feature: ('graph_embedding_from_review', 'jd_review1')
+F1: 0.58 (+/- 0.13) || Feature: ('graph_embedding_from_review', 'jd_review2')
+F1: 0.60 (+/- 0.10) || Feature: ('graph_embedding_from_review', 'jd_review_star')
+F1: 0.60 (+/- 0.10) || Feature: ('graph_embedding_from_review', 'jd_review_length')
+F1: 0.59 (+/- 0.13) || Feature: ('graph_embedding_from_review', 'jd_user_user_propagate1')
+F1: 0.60 (+/- 0.09) || Feature: ('graph_embedding_from_review', 'jd_user_user_propagate2')
+F1: 0.57 (+/- 0.05) || Feature: ('graph_embedding_from_user_product', 'jd_good_Markov')
+F1: 0.61 (+/- 0.09) || Feature: ('graph_embedding_from_user_product', 'jd_good_class1')
+F1: 0.62 (+/- 0.08) || Feature: ('graph_embedding_from_user_product', 'jd_good_class2')
+F1: 0.60 (+/- 0.08) || Feature: ('graph_embedding_from_user_product', 'jd_good_class3')
+F1: 0.62 (+/- 0.05) || Feature: ('graph_embedding_from_user_product', 'jd_review1')
+F1: 0.62 (+/- 0.06) || Feature: ('graph_embedding_from_user_product', 'jd_review2')
+F1: 0.60 (+/- 0.07) || Feature: ('graph_embedding_from_user_product', 'jd_review_star')
+F1: 0.60 (+/- 0.08) || Feature: ('graph_embedding_from_user_product', 'jd_review_length')
+F1: 0.59 (+/- 0.08) || Feature: ('graph_embedding_from_user_product', 'jd_user_user_propagate1')
+F1: 0.60 (+/- 0.06) || Feature: ('graph_embedding_from_user_product', 'jd_user_user_propagate2')
+F1: 0.56 (+/- 0.07) || Feature: ('jd_good_Markov', 'jd_good_class1')
+F1: 0.58 (+/- 0.07) || Feature: ('jd_good_Markov', 'jd_good_class2')
+F1: 0.57 (+/- 0.07) || Feature: ('jd_good_Markov', 'jd_good_class3')
+F1: 0.59 (+/- 0.06) || Feature: ('jd_good_Markov', 'jd_review1')
+F1: 0.57 (+/- 0.10) || Feature: ('jd_good_Markov', 'jd_review2')
+F1: 0.57 (+/- 0.04) || Feature: ('jd_good_Markov', 'jd_review_star')
+F1: 0.57 (+/- 0.07) || Feature: ('jd_good_Markov', 'jd_review_length')
+F1: 0.59 (+/- 0.09) || Feature: ('jd_good_Markov', 'jd_user_user_propagate1')
+F1: 0.58 (+/- 0.08) || Feature: ('jd_good_Markov', 'jd_user_user_propagate2')
+F1: 0.60 (+/- 0.09) || Feature: ('jd_good_class1', 'jd_good_class2')
+F1: 0.58 (+/- 0.08) || Feature: ('jd_good_class1', 'jd_good_class3')
+F1: 0.61 (+/- 0.04) || Feature: ('jd_good_class1', 'jd_review1')
+F1: 0.62 (+/- 0.09) || Feature: ('jd_good_class1', 'jd_review2')
+F1: 0.57 (+/- 0.09) || Feature: ('jd_good_class1', 'jd_review_star')
+F1: 0.60 (+/- 0.08) || Feature: ('jd_good_class1', 'jd_review_length')
+F1: 0.60 (+/- 0.08) || Feature: ('jd_good_class1', 'jd_user_user_propagate1')
+F1: 0.61 (+/- 0.09) || Feature: ('jd_good_class1', 'jd_user_user_propagate2')
+F1: 0.56 (+/- 0.09) || Feature: ('jd_good_class2', 'jd_good_class3')
+F1: 0.61 (+/- 0.07) || Feature: ('jd_good_class2', 'jd_review1')
+F1: 0.63 (+/- 0.07) || Feature: ('jd_good_class2', 'jd_review2')
+F1: 0.58 (+/- 0.09) || Feature: ('jd_good_class2', 'jd_review_star')
+F1: 0.61 (+/- 0.08) || Feature: ('jd_good_class2', 'jd_review_length')
+F1: 0.61 (+/- 0.10) || Feature: ('jd_good_class2', 'jd_user_user_propagate1')
+F1: 0.61 (+/- 0.09) || Feature: ('jd_good_class2', 'jd_user_user_propagate2')
+F1: 0.60 (+/- 0.08) || Feature: ('jd_good_class3', 'jd_review1')
+F1: 0.60 (+/- 0.09) || Feature: ('jd_good_class3', 'jd_review2')
+F1: 0.57 (+/- 0.07) || Feature: ('jd_good_class3', 'jd_review_star')
+F1: 0.59 (+/- 0.09) || Feature: ('jd_good_class3', 'jd_review_length')
+F1: 0.60 (+/- 0.10) || Feature: ('jd_good_class3', 'jd_user_user_propagate1')
+F1: 0.59 (+/- 0.12) || Feature: ('jd_good_class3', 'jd_user_user_propagate2')
+F1: 0.63 (+/- 0.07) || Feature: ('jd_review1', 'jd_review2')
+F1: 0.63 (+/- 0.06) || Feature: ('jd_review1', 'jd_review_star')
+F1: 0.62 (+/- 0.05) || Feature: ('jd_review1', 'jd_review_length')
+F1: 0.58 (+/- 0.05) || Feature: ('jd_review1', 'jd_user_user_propagate1')
+F1: 0.60 (+/- 0.07) || Feature: ('jd_review1', 'jd_user_user_propagate2')
+F1: 0.63 (+/- 0.06) || Feature: ('jd_review2', 'jd_review_star')
+F1: 0.61 (+/- 0.05) || Feature: ('jd_review2', 'jd_review_length')
+F1: 0.59 (+/- 0.08) || Feature: ('jd_review2', 'jd_user_user_propagate1')
+F1: 0.60 (+/- 0.06) || Feature: ('jd_review2', 'jd_user_user_propagate2')
+F1: 0.58 (+/- 0.08) || Feature: ('jd_review_star', 'jd_review_length')
+F1: 0.60 (+/- 0.07) || Feature: ('jd_review_star', 'jd_user_user_propagate1')
+F1: 0.58 (+/- 0.07) || Feature: ('jd_review_star', 'jd_user_user_propagate2')
+F1: 0.60 (+/- 0.07) || Feature: ('jd_review_length', 'jd_user_user_propagate1')
+F1: 0.61 (+/- 0.06) || Feature: ('jd_review_length', 'jd_user_user_propagate2')
+F1: 0.59 (+/- 0.06) || Feature: ('jd_user_user_propagate1', 'jd_user_user_propagate2')
+
+==============================
+2015-06-03 15:14:08.787762
+--------------------
+Feature Count: 1
+F1: 0.63 (+/- 0.00) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 15:15:36.652629
+--------------------
+Feature Count: 1
+F1: 0.62 (+/- 0.10) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 15:19:39.350327
+--------------------
+Feature Count: 1
+F1: 0.56 (+/- 0.04) || Features:('jd_user_user_propagate1',)
+F1: 0.63 (+/- 0.09) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 15:24:48.889859
+--------------------
+Feature Count: 1
+F1: 0.58 (+/- 0.08) || Features:('jd_user_simple',)
+F1: 0.64 (+/- 0.06) || Features:('jd_user_user_propagate1',)
+F1: 0.84 (+/- 0.13) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 15:29:58.825991
+--------------------
+Feature Count: 1
+F1: 0.53 (+/- 0.15) || Features:('jd_user_simple',)
+F1: 0.59 (+/- 0.06) || Features:('jd_user_user_propagate1',)
+F1: 0.71 (+/- 0.12) || Features:('user_embedding_from_path_with_attributes_0.75',)
+==============================
+2015-06-03 15:39:09.753827
+==============================
+2015-06-03 15:39:27.235483
+--------------------
+Feature Count: 1
+F1: 0.72 (+/- 0.11) || Features:('user_embedding_from_path_with_attributes_0.75',)
