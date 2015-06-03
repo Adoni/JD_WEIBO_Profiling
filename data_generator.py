@@ -4,18 +4,12 @@ import numpy
 import json
 import pickle
 import sys
+from my_progress_bar import progress_bar
 
 access_token = '2.00L9khmFlxpd6C91aec9ef010s3KCc'
 word_vector_size=500
 time_vector_size=24
 GLOBAL_PATH='/mnt/data1/adoni/jd_data/matrixes/'
-class progressive_bar:
-    import sys
-    def __init__(self, total_count):
-        self.total_count=total_count*1.0
-    def draw(self, value):
-        sys.stdout.write('\rFinish: %f%%'%(100.0*value/self.total_count))
-        sys.stdout.flush()
 
 def save_vector_to_text(vector, file_name, folder):
     import os
@@ -74,10 +68,6 @@ def dump_vectors():
     pickle.dump(word_vectors,open('parameters.bin','wb'))
     print 'dump done'
 
-def get_progressive_bar(total_count):
-    bar=progressive_bar(total_count)
-    return bar
-
 def get_one_hot_vector(features, feature_map):
     vector=numpy.zeros((max(feature_map.values())+1))
     for f in features:
@@ -89,14 +79,6 @@ def get_one_hot_vector(features, feature_map):
         return vector
     #vector/=sum(vector)
     return vector
-
-def get_str_description(description):
-    d=[]
-    for dd in description:
-        #d=d+dd
-        d.append(''.join(dd))
-    d=' '.join(d)
-    return d
 
 def dump_user_vector(x,y,uids,folder):
     print 'DUMP DATA'
@@ -323,7 +305,7 @@ def output_simple_matrix(feature_length=10000):
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    bar=get_progressive_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     for user in users.find():
@@ -364,7 +346,7 @@ def output_simple_review_matrix(feature_length=10000):
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    #bar=get_progressive_bar(total_count)
+    #bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     for user in users.find():
@@ -400,7 +382,7 @@ def output_shopping_tf_matrix(feature_length=3):
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    bar=get_progressive_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     count_male=0
@@ -440,7 +422,7 @@ def output_sentence_embedding_matrix(file_name1,file_name2):
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    bar=get_progressive_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     count_male=0
@@ -481,7 +463,7 @@ def output_graph_embedding_matrix(file_name1,file_name2,manual=False):
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    bar=get_progressive_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     count_male=0
@@ -526,7 +508,7 @@ def output_goods_class_markov_matrix(manual=False):
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    bar=get_progressive_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     for user in users.find():
@@ -569,7 +551,7 @@ def output_goods_class_matrix(order=1):
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    bar=get_progressive_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     for user in users.find():
@@ -618,7 +600,7 @@ def output_review_matrix(order,feature_length=1000):
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    bar=get_progressive_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     for user in users.find():
@@ -662,7 +644,7 @@ def output_review_length_matrix(feature_length=1000):
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    bar=get_progressive_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     for user in users.find():
@@ -715,7 +697,7 @@ def output_review_star_matrix(feature_length=1000):
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    bar=get_progressive_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     for user in users.find():
@@ -753,7 +735,7 @@ def output_user_user_propagate_vectors(order):
     users=Connection().jd.weibo_users
     vectors=load_user_user_graph_propagate_vector(order)
     total_count=users.count()
-    bar=get_progressive_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     for user in users.find():
