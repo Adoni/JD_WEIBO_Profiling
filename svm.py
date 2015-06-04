@@ -48,6 +48,16 @@ def disarrange_data2(data):
         data[2].append(disarranged_data[1][2][i])
     return data
 
+def single_test(feature, attribute):
+    data=merge_different_vectors([feature],attribute)
+    data=disarrange_data2(data)
+    #data=disarrange_data(data)
+    clf=LogisticRegression()
+    split_point=5000
+    clf.fit(data[1][0:split_point],data[2][0:split_point])
+    predicted_y=clf.predict(data[1][split_point:])
+    print 1-sum((numpy.array(predicted_y)-numpy.array(data[2][split_point:]))**2)*1.0/len(predicted_y)
+
 def batch_test(attribute):
     all_features=[
         #'jd_user_simple',
@@ -78,20 +88,21 @@ def batch_test(attribute):
     fout.write('='*30+'\n')
     fout.write(str(datetime.datetime.today())+'\n')
     f=open('heh.data','w')
-    for count in range(2,3):
+    for count in range(1,2):
         fout.write('-'*20+'\n')
         fout.write('Feature Count: %d\n'%count)
         for features in combinations(all_features,count):
             data=merge_different_vectors(features,attribute)
             #data=disarrange_data2(data)
             #data=disarrange_data(data)
-            for i in range(len(data[0])):
-                f.write('%s %d\n'%(data[0][i],data[2][i]))
             clf=LogisticRegression()
-            score=cross_validation.cross_val_score(clf, data[1],data[2],cv=10,scoring='accuracy')
-            result='F1: %0.2f (+/- %0.2f) || Features:%s\n'%(score.mean(), score.std()*2, str(features))
+            score_f1=cross_validation.cross_val_score(clf, data[1],data[2],cv=10,scoring='f1')
+            score_accuracy=cross_validation.cross_val_score(clf, data[1],data[2],cv=10,scoring='accuracy')
+            result='F1: %0.2f (+/- %0.2f) || Accuracy: %0.2f (+/- %0.2f) || Features:%s\n'%(score_f1.mean(), score_f1.std()*2, score_accuracy.mean(), score_accuracy.std()*2, str(features))
             print result
             fout.write(result)
 
 if __name__=='__main__':
     batch_test('gender')
+    batch_test('age')
+    #single_test('user_embedding_from_path_with_attributes_0.75','gender')
