@@ -58,7 +58,7 @@ def single_test(feature, attribute):
     predicted_y=clf.predict(data[1][split_point:])
     print 1-sum((numpy.array(predicted_y)-numpy.array(data[2][split_point:]))**2)*1.0/len(predicted_y)
 
-def batch_test(attribute):
+def batch_test(attribute, min_size=1, max_size=1):
     all_features=[
         #'jd_user_simple',
         #'jd_review_simple',
@@ -88,7 +88,7 @@ def batch_test(attribute):
     fout.write('='*30+'\n')
     fout.write(str(datetime.datetime.today())+'\n')
     f=open('heh.data','w')
-    for count in range(1,2):
+    for count in range(min_size,max_size+1):
         fout.write('-'*20+'\n')
         fout.write('Feature Count: %d\n'%count)
         for features in combinations(all_features,count):
@@ -103,6 +103,6 @@ def batch_test(attribute):
             fout.write(result)
 
 if __name__=='__main__':
-    batch_test('gender')
-    batch_test('age')
+    batch_test('new_age',1,1)
+    batch_test('location',1,1)
     #single_test('user_embedding_from_path_with_attributes_0.75','gender')

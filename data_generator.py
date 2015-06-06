@@ -43,31 +43,6 @@ def load_vector_from_text(file_name, folder, file_type):
     print 'Vector type should be list or numpy.ndarray'
     return None
 
-def get_vectors(file_name):
-    print 'Getting vectors...'
-    f=open(file_name)
-    vectors=dict()
-    for line in f:
-        line=line
-        line=line.split(' ')
-        try:
-            line.remove('\n')
-        except Exception as e:
-            pass
-        key=line[0]
-        vector=[0]*(len(line)-1)
-        for i in range(1,len(line)):
-            vector[i-1]=float(line[i])
-        vectors[key]=numpy.array(vector)
-    print 'Done'
-    return vectors
-
-def dump_vectors():
-    word_vectors=get_vectors('./word_vectors.data')
-    print 'dump'
-    pickle.dump(word_vectors,open('parameters.bin','wb'))
-    print 'dump done'
-
 def get_one_hot_vector(features, feature_map):
     vector=numpy.zeros((max(feature_map.values())+1))
     for f in features:
@@ -80,15 +55,12 @@ def get_one_hot_vector(features, feature_map):
     #vector/=sum(vector)
     return vector
 
-def dump_user_vector(x,y,uids,folder):
+def dump_user_vector(x,uids,folder):
     print 'DUMP DATA'
     print 'X dimention:'+str(len(x[0]))
-    if not len(x)==len(y):
-        raise Exception('x not equal with y')
     if not len(x)==len(uids):
         raise Exception('x not equal with uids')
     save_vector_to_text(x,'x.matrix',folder)
-    save_vector_to_text(y,'y.vector',folder)
     save_vector_to_text(uids,'uids.vector',folder)
     #pickle.dump((uids,user_vector),open('/mnt/data1/adoni/jd_data/matrixes/'+file_name+'.matrix','wb'))
 
@@ -116,7 +88,7 @@ def dump_train_valid_test(x,y,uids):
             continue
         if not numpy.any(x[i]):
             continue
-        if counts[y[i]]<MAX_COUNT:
+        if True:#counts[y[i]]<MAX_COUNT:
             all_x.append(x[i])
             all_y.append(y[i])
             all_uids.append(uids[i])
@@ -152,36 +124,6 @@ def get_all_item():
             except:
                 items[behavior['item']]=1
     return items
-
-def get_location_class(location,location_map):
-    if location is None:
-        return -1
-    location=location.split(' ')[0]
-    if location in location_map:
-        return location_map[location]
-    else:
-        return -1
-
-def get_age_class(birthday):
-    if birthday is None:
-        return -1
-    if u'年' not in birthday:
-        return -1
-    age=birthday[0:birthday.find(u'年')]
-    if len(age)==2:
-        age='19'+age
-    age=int(age)
-    if age<1990:
-        return 0
-    else:
-        return 1
-
-def get_gender_class(gender):
-    if gender==u'男':
-        return 1
-    if gender==u'女':
-        return 0
-    return -1
 
 def get_user_embedding(file_name):
     import sys
@@ -296,7 +238,6 @@ def output_simple_matrix(feature_length=10000):
             break
         feature_map[f[i].decode('utf8').split(' ')[0]]=i
     all_x=[]
-    all_y=[]
     index=0
     #进度条相关参数
     users=Connection().jd.weibo_users
@@ -312,21 +253,14 @@ def output_simple_matrix(feature_length=10000):
         vector=get_one_hot_vector(features, feature_map)
         if not vector.any():
             continue
-        #y=get_location_class(user['location'],key_map)
-        y=get_gender_class(user['gender'])
-        #if y==-1:
-        #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    all_y=numpy.array(all_y)
-    #dump_user_vector(all_x,all_y,uids,'jd_user_simple')
-    return all_x,all_y,uids
-    return dump_train_valid_test(all_x, all_y, 'jd_user_simple')
+    #dump_user_vector(all_x,uids,'jd_user_simple')
+    return all_x,uids
 
 def output_simple_review_matrix(feature_length=10000):
     from pymongo import Connection
@@ -337,7 +271,6 @@ def output_simple_review_matrix(feature_length=10000):
             break
         feature_map[f[i].decode('utf8').split(' ')[0]]=i
     all_x=[]
-    all_y=[]
     index=0
     #进度条相关参数
     users=Connection().jd.weibo_users
@@ -354,26 +287,19 @@ def output_simple_review_matrix(feature_length=10000):
         vector=get_one_hot_vector(features, feature_map)
         if not vector.any():
             continue
-        #y=get_location_class(user['location'],key_map)
-        y=get_gender_class(user['gender'])
-        #if y==-1:
-        #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
         #bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    all_y=numpy.array(all_y)
-    return all_x,all_y,uids
-    #dump_user_vector(all_x,all_y,uids,'jd_review_simple')
+    return all_x,uids
+    #dump_user_vector(all_x,uids,'jd_review_simple')
     #return dump_train_valid_test(all_x, all_y, uids)
 
 def output_shopping_tf_matrix(feature_length=3):
     from pymongo import Connection
     all_x=[]
-    all_y=[]
     index=0
     #进度条相关参数
     users=Connection().jd.weibo_users
@@ -395,10 +321,6 @@ def output_shopping_tf_matrix(feature_length=3):
         tf=sorted(tf.iteritems(), key=lambda d:d[1], reverse=True)
         for i in range(0,feature_length):
             vector[i]=tf[i][1]
-        y=get_gender_class(user['gender'])
-        #if y==-1:
-        #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
@@ -411,7 +333,6 @@ def output_shopping_tf_matrix(feature_length=3):
 def output_sentence_embedding_matrix(file_name1,file_name2):
     from pymongo import Connection
     all_x=[]
-    all_y=[]
     index=0
     embedding=get_user_embedding(file_name1)
     #embedding=load_user_embedding(file_name1)
@@ -427,25 +348,21 @@ def output_sentence_embedding_matrix(file_name1,file_name2):
             vector=embedding['USER_%d'%user['jd_id']]
         except:
             continue
-        y=get_gender_class(user['gender'])
         #if y==-1:
         #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    all_y=numpy.array(all_y)
     #return dump_train_valid_test(all_x, all_y, 'jd_user_embedding')
     #dump_user_vector(all_x, all_y, uids, 'jd_user_embedding_with_item_class')
-    dump_user_vector(all_x, all_y, uids, file_name2)
+    dump_user_vector(all_x, uids, file_name2)
 
 def output_graph_embedding_matrix(file_name1,file_name2,manual=False):
     from pymongo import Connection
     all_x=[]
-    all_y=[]
     index=0
     users=Connection().jd.weibo_users
     uids=[]
@@ -472,19 +389,14 @@ def output_graph_embedding_matrix(file_name1,file_name2,manual=False):
         except Exception as e:
             print e
             continue
-        y=get_gender_class(user['gender'])
-        #if y==-1:
-        #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    all_y=numpy.array(all_y)
     #return dump_train_valid_test(all_x, all_y, 'jd_graph_embedding')
-    dump_user_vector(all_x, all_y, uids, file_name2)
+    dump_user_vector(all_x, uids, file_name2)
     #dump_user_vector(all_x, all_y, uids, 'jd_graph_embedding_from_review')
     #dump_user_vector(all_x, all_y, uids, 'jd_graph_embedding_from_user_and_product')
 
@@ -499,7 +411,6 @@ def output_goods_class_markov_matrix(manual=False):
         for index2,f2 in enumerate(tmp_feature):
             feature_map[(f1,f2)]=index1*len(tmp_feature)+index2
     all_x=[]
-    all_y=[]
     index=0
     #进度条相关参数
     users=Connection().jd.weibo_users
@@ -517,18 +428,13 @@ def output_goods_class_markov_matrix(manual=False):
         vector=get_one_hot_vector(features,feature_map)
         if not vector.any():
             continue
-        y=get_gender_class(user['gender'])
-        #if y==-1:
-        #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    all_y=numpy.array(all_y)
-    dump_user_vector(all_x,all_y,uids,'jd_good_Markov')
+    dump_user_vector(all_x,uids,'jd_good_Markov')
     return
     return dump_train_valid_test(all_x, all_y, 'jd_user_simple')
 
@@ -542,7 +448,6 @@ def output_goods_class_matrix(order=1):
     for index,f in enumerate(tmp_feature):
         feature_map[f]=index
     all_x=[]
-    all_y=[]
     index=0
     #进度条相关参数
     users=Connection().jd.weibo_users
@@ -559,18 +464,13 @@ def output_goods_class_matrix(order=1):
         vector=get_one_hot_vector(features,feature_map)
         if not vector.any():
             continue
-        y=get_gender_class(user['gender'])
-        #if y==-1:
-        #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    all_y=numpy.array(all_y)
-    dump_user_vector(all_x,all_y,uids,'jd_good_class'+str(order))
+    dump_user_vector(all_x,uids,'jd_good_class'+str(order))
     return
     return dump_train_valid_test(all_x, all_y, 'jd_user_simple')
 
@@ -591,7 +491,6 @@ def output_review_matrix(order,feature_length=1000):
     print index1
     print index2
     all_x=[]
-    all_y=[]
     index=0
     #进度条相关参数
     users=Connection().jd.weibo_users
@@ -618,24 +517,18 @@ def output_review_matrix(order,feature_length=1000):
         #if not vector.any():
         #    continue
         #y=get_location_class(user['location'],key_map)
-        y=get_gender_class(user['gender'])
-        #if y==-1:
-        #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    all_y=numpy.array(all_y)
-    dump_user_vector(all_x,all_y,uids,'jd_review%d'%order)
+    dump_user_vector(all_x,uids,'jd_review%d'%order)
     #return dump_train_valid_test(all_x, all_y, 'jd_review2')
 
 def output_review_length_matrix(feature_length=1000):
     from pymongo import Connection
     all_x=[]
-    all_y=[]
     index=0
     #进度条相关参数
     users=Connection().jd.weibo_users
@@ -667,18 +560,13 @@ def output_review_length_matrix(feature_length=1000):
         if not vector.any():
             continue
         #y=get_location_class(user['location'],key_map)
-        y=get_gender_class(user['gender'])
-        #if y==-1:
-        #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    all_y=numpy.array(all_y)
-    dump_user_vector(all_x,all_y,uids,'jd_review_length')
+    dump_user_vector(all_x,uids,'jd_review_length')
     return
     return dump_train_valid_test(all_x, all_y, 'jd_review_length')
 
@@ -688,7 +576,6 @@ def output_review_star_matrix(feature_length=1000):
     for i in range(0,6):
         feature_map[str(i)]=i
     all_x=[]
-    all_y=[]
     index=0
     #进度条相关参数
     users=Connection().jd.weibo_users
@@ -707,25 +594,19 @@ def output_review_star_matrix(feature_length=1000):
         if not vector.any():
             continue
         #y=get_location_class(user['location'],key_map)
-        y=get_gender_class(user['gender'])
-        #if y==-1:
-        #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    all_y=numpy.array(all_y)
-    dump_user_vector(all_x,all_y,uids,'jd_review_star')
+    dump_user_vector(all_x,uids,'jd_review_star')
     return
     return dump_train_valid_test(all_x, all_y, 'jd_review_star')
 
 def output_user_user_propagate_vectors(order):
     from pymongo import Connection
     all_x=[]
-    all_y=[]
     index=0
     #进度条相关参数
     users=Connection().jd.weibo_users
@@ -742,18 +623,13 @@ def output_user_user_propagate_vectors(order):
         if not vector.any():
             continue
         #y=get_location_class(user['location'],key_map)
-        y=get_gender_class(user['gender'])
-        #if y==-1:
-        #    continue
-        all_y.append(y)
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    all_y=numpy.array(all_y)
-    dump_user_vector(all_x,all_y,uids,'jd_user_user_propagate'+str(order))
+    dump_user_vector(all_x,uids,'jd_user_user_propagate'+str(order))
     return
     return dump_train_valid_test(all_x, all_y, 'jd_user_user_propagate')
 
