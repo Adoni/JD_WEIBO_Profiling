@@ -49,40 +49,58 @@ def disarrange_data2(data):
     return data
 
 def single_test(feature, attribute):
+    from sklearn.metrics import f1_score
+    from data_generator import load_vector_from_text
+    import random
     data=merge_different_vectors([feature],attribute)
-    data=disarrange_data2(data)
-    #data=disarrange_data(data)
+    none_attribute_uids=load_vector_from_text('uids_none_attributes.vector',feature,'list')
+    print len(none_attribute_uids)
+    train_data=[[],[]]
+    test_data=[[],[]]
+    for index,uid in enumerate(data[0]):
+        #if uid in none_attribute_uids:
+        if random.random()<0.2:
+            test_data[0].append(data[1][index])
+            test_data[1].append(data[2][index])
+        else:
+            train_data[0].append(data[1][index])
+            train_data[1].append(data[2][index])
     clf=LogisticRegression()
     split_point=5000
-    clf.fit(data[1][0:split_point],data[2][0:split_point])
-    predicted_y=clf.predict(data[1][split_point:])
-    print 1-sum((numpy.array(predicted_y)-numpy.array(data[2][split_point:]))**2)*1.0/len(predicted_y)
+    clf.fit(train_data[0], train_data[1])
+    predicted_y=clf.predict(test_data[0])
+    print predicted_y[:100]
+    print test_data[1][:100]
+    print f1_score(test_data[1], predicted_y)
+    predicted_y=clf.predict(train_data[0])
+    print f1_score(train_data[1], predicted_y)
 
 def batch_test(attribute, min_size=1, max_size=1):
     all_features=[
         #'jd_user_simple',
         #'jd_review_simple',
-        'jd_user_embedding',
-        'jd_user_embedding_with_item_class',
-        'jd_user_embedding_from_review',
-        'graph_embedding_from_shopping_sequence',
-        'graph_embedding_from_review',
-        'graph_embedding_from_user_product',
-        'jd_good_Markov',
-        'jd_good_class1',
-        'jd_good_class2',
-        'jd_good_class3',
-        'jd_review1',
-        'jd_review2',
-        'jd_review_star',
-        'jd_review_length',
-        'jd_user_user_propagate1',
-        'jd_user_user_propagate2',
-        'user_embedding_from_path_with_attributes_1.00',
-        'user_embedding_from_path_with_attributes_0.75',
-        'user_embedding_from_path_with_attributes_0.50',
-        'user_embedding_from_path_with_attributes_0.25',
+        #'jd_user_embedding',
+        #'jd_user_embedding_with_item_class',
+        #'jd_user_embedding_from_review',
+        #'graph_embedding_from_shopping_sequence',
+        #'graph_embedding_from_review',
+        #'graph_embedding_from_user_product',
+        #'jd_good_Markov',
+        #'jd_good_class1',
+        #'jd_good_class2',
+        #'jd_good_class3',
+        #'jd_review1',
+        #'jd_review2',
+        #'jd_review_star',
+        #'jd_review_length',
+        #'jd_user_user_propagate1',
+        #'jd_user_user_propagate2',
+        #'user_embedding_from_path_with_attributes_1.00',
+        #'user_embedding_from_path_with_attributes_0.75',
+        #'user_embedding_from_path_with_attributes_0.50',
+        #'user_embedding_from_path_with_attributes_0.25',
         'user_embedding_from_path_with_attributes_0.00',
+        'new_user_embedding_from_path_with_attributes_0.00',
         ]
     fout=open('./results/Experiments_results_%s.result'%attribute,'a')
     fout.write('='*30+'\n')
@@ -103,6 +121,13 @@ def batch_test(attribute, min_size=1, max_size=1):
             fout.write(result)
 
 if __name__=='__main__':
-    batch_test('new_age',1,1)
-    batch_test('location',1,1)
+    #single_test('new_user_embedding_from_path_with_attributes_1.00','gender')
+    #single_test('new_user_embedding_from_path_with_attributes_0.80','gender')
+    #single_test('new_user_embedding_from_path_with_attributes_0.60','gender')
+    #single_test('new_user_embedding_from_path_with_attributes_0.40','gender')
+    #single_test('new_user_embedding_from_path_with_attributes_0.20','gender')
+    single_test('new_user_embedding_from_path_with_attributes_0.00','gender')
+    #batch_test('gender',1,1)
+    #batch_test('new_age',1,1)
+    #batch_test('location',1,1)
     #single_test('user_embedding_from_path_with_attributes_0.75','gender')

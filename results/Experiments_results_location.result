@@ -23,3 +23,7 @@ F1: 0.40 (+/- 0.05) || Accuracy: 0.48 (+/- 0.02) || Features:('user_embedding_fr
 F1: 0.40 (+/- 0.06) || Accuracy: 0.48 (+/- 0.01) || Features:('user_embedding_from_path_with_attributes_0.50',)
 F1: 0.41 (+/- 0.06) || Accuracy: 0.49 (+/- 0.02) || Features:('user_embedding_from_path_with_attributes_0.25',)
 F1: 0.40 (+/- 0.06) || Accuracy: 0.48 (+/- 0.02) || Features:('user_embedding_from_path_with_attributes_0.00',)
+==============================
+2015-06-06 19:58:56.386833
+--------------------
+Feature Count: 1

@@ -23,3 +23,12 @@ F1: 0.12 (+/- 0.11) || Accuracy: 0.73 (+/- 0.02) || Features:('user_embedding_fr
 F1: 0.09 (+/- 0.10) || Accuracy: 0.73 (+/- 0.01) || Features:('user_embedding_from_path_with_attributes_0.50',)
 F1: 0.12 (+/- 0.11) || Accuracy: 0.73 (+/- 0.01) || Features:('user_embedding_from_path_with_attributes_0.25',)
 F1: 0.12 (+/- 0.11) || Accuracy: 0.73 (+/- 0.03) || Features:('user_embedding_from_path_with_attributes_0.00',)
+==============================
+2015-06-06 19:57:46.235025
+--------------------
+Feature Count: 1
+==============================
+2015-06-06 19:58:25.638619
+--------------------
+Feature Count: 1
+F1: 0.12 (+/- 0.15) || Accuracy: 0.73 (+/- 0.02) || Features:('new_user_embedding_from_path_with_attributes_0.80',)

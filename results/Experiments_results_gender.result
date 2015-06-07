@@ -237,3 +237,50 @@ F1: 0.87 (+/- 0.11) || Accuracy: 0.86 (+/- 0.14) || Features:('user_embedding_fr
 F1: 0.88 (+/- 0.11) || Accuracy: 0.87 (+/- 0.11) || Features:('user_embedding_from_path_with_attributes_0.50', 'user_embedding_from_path_with_attributes_0.25')
 F1: 0.85 (+/- 0.12) || Accuracy: 0.84 (+/- 0.16) || Features:('user_embedding_from_path_with_attributes_0.50', 'user_embedding_from_path_with_attributes_0.00')
 F1: 0.82 (+/- 0.14) || Accuracy: 0.81 (+/- 0.20) || Features:('user_embedding_from_path_with_attributes_0.25', 'user_embedding_from_path_with_attributes_0.00')
+==============================
+2015-06-06 19:59:46.253469
+--------------------
+Feature Count: 1
+F1: 0.94 (+/- 0.08) || Accuracy: 0.91 (+/- 0.13) || Features:('new_user_embedding_from_path_with_attributes_0.80',)
+==============================
+2015-06-06 20:15:05.309442
+--------------------
+Feature Count: 1
+F1: 0.91 (+/- 0.07) || Accuracy: 0.85 (+/- 0.12) || Features:('user_embedding_from_path_with_attributes_1.00',)
+F1: 0.94 (+/- 0.08) || Accuracy: 0.91 (+/- 0.13) || Features:('new_user_embedding_from_path_with_attributes_0.80',)
+==============================
+2015-06-07 11:29:31.460227
+--------------------
+Feature Count: 1
+F1: 0.90 (+/- 0.08) || Accuracy: 0.90 (+/- 0.08) || Features:('user_embedding_from_path_with_attributes_1.00',)
+==============================
+2015-06-07 11:30:51.591439
+--------------------
+Feature Count: 1
+F1: 1.00 (+/- 0.00) || Accuracy: 1.00 (+/- 0.00) || Features:('new_user_embedding_from_path_with_attributes_1.00',)
+==============================
+2015-06-07 11:46:38.198954
+--------------------
+Feature Count: 1
+F1: 1.00 (+/- 0.00) || Accuracy: 1.00 (+/- 0.00) || Features:('new_user_embedding_from_path_with_attributes_1.00',)
+==============================
+2015-06-07 11:47:56.826769
+--------------------
+Feature Count: 1
+F1: 0.96 (+/- 0.09) || Accuracy: 0.95 (+/- 0.11) || Features:('new_user_embedding_from_path_with_attributes_0.80',)
+==============================
+2015-06-07 11:49:43.208160
+--------------------
+Feature Count: 1
+F1: 0.96 (+/- 0.09) || Accuracy: 0.95 (+/- 0.11) || Features:('new_user_embedding_from_path_with_attributes_0.80',)
+==============================
+2015-06-07 11:57:39.404856
+--------------------
+Feature Count: 1
+F1: 0.76 (+/- 0.19) || Accuracy: 0.74 (+/- 0.27) || Features:('user_embedding_from_path_with_attributes_0.00',)
+==============================
+2015-06-07 11:58:42.489321
+--------------------
+Feature Count: 1
+F1: 0.76 (+/- 0.19) || Accuracy: 0.74 (+/- 0.27) || Features:('user_embedding_from_path_with_attributes_0.00',)
+F1: 0.76 (+/- 0.20) || Accuracy: 0.74 (+/- 0.28) || Features:('new_user_embedding_from_path_with_attributes_0.00',)

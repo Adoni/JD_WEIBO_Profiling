@@ -88,7 +88,7 @@ def dump_train_valid_test(x,y,uids):
             continue
         if not numpy.any(x[i]):
             continue
-        if True:#counts[y[i]]<MAX_COUNT:
+        if counts[y[i]]<MAX_COUNT:
             all_x.append(x[i])
             all_y.append(y[i])
             all_uids.append(uids[i])
