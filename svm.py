@@ -134,7 +134,7 @@ def batch_test(attribute, min_size=1, max_size=1):
 def test_embedding():
     x=[]
     y=[]
-    for ratio in numpy.arange(0.,0.60,0.05):
+    for ratio in numpy.arange(0.,0.85,0.05):
         print ratio
         x.append(ratio)
         y.append(single_test('user_embedding_from_path_with_attributes_%0.2f'%ratio,'gender'))
@@ -152,5 +152,5 @@ if __name__=='__main__':
     #batch_test('gender',1,1)
     #batch_test('new_age',1,1)
     #batch_test('location',1,1)
-    #single_test('user_embedding_from_path_with_attributes_0.75','gender')
-    test_embedding()
+    single_test('multi_user_embedding_from_path_with_attributes_0.20','gender')
+    #test_embedding()
