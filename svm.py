@@ -50,16 +50,21 @@ def disarrange_data2(data):
 
 def single_test(feature, attribute):
     from sklearn.metrics import f1_score
+    from sklearn.metrics import recall_score
+    from sklearn.metrics import accuracy_score
     from data_generator import load_vector_from_text
     import random
     data=merge_different_vectors([feature],attribute)
     none_attribute_uids=load_vector_from_text('uids_none_attributes.vector',feature,'list')
+    none_attribute_uids=filter(lambda x:x in data[0],none_attribute_uids)
+    alpha=0.2*len(data[0])/len(none_attribute_uids)
+    print alpha
     print len(none_attribute_uids)
     train_data=[[],[]]
     test_data=[[],[]]
     for index,uid in enumerate(data[0]):
-        #if uid in none_attribute_uids:
-        if random.random()<0.2:
+        if uid in none_attribute_uids and random.random()<alpha:
+        #if random.random()<0.2:
             test_data[0].append(data[1][index])
             test_data[1].append(data[2][index])
         else:
@@ -69,11 +74,16 @@ def single_test(feature, attribute):
     split_point=5000
     clf.fit(train_data[0], train_data[1])
     predicted_y=clf.predict(test_data[0])
-    print predicted_y[:100]
-    print test_data[1][:100]
-    print f1_score(test_data[1], predicted_y)
+    test_accuracy=accuracy_score(test_data[1],predicted_y)
+    test_recall=recall_score(test_data[1],predicted_y)
+    test_f1=f1_score(test_data[1],predicted_y)
+    print 'F1 of test data (%d %d): %0.2f'%(sum(test_data[1]),len(test_data[1]),test_f1)
     predicted_y=clf.predict(train_data[0])
-    print f1_score(train_data[1], predicted_y)
+    train_accuracy=accuracy_score(train_data[1],predicted_y)
+    train_recall=recall_score(train_data[1],predicted_y)
+    train_f1=f1_score(train_data[1],predicted_y)
+    print 'F1 of train data (%d %d): %0.2f'%(sum(train_data[1]),len(train_data[1]),train_f1)
+    return test_accuracy,test_recall,test_f1,train_accuracy,train_recall,train_f1
 
 def batch_test(attribute, min_size=1, max_size=1):
     all_features=[
@@ -95,10 +105,11 @@ def batch_test(attribute, min_size=1, max_size=1):
         #'jd_review_length',
         #'jd_user_user_propagate1',
         #'jd_user_user_propagate2',
-        #'user_embedding_from_path_with_attributes_1.00',
-        #'user_embedding_from_path_with_attributes_0.75',
-        #'user_embedding_from_path_with_attributes_0.50',
-        #'user_embedding_from_path_with_attributes_0.25',
+        'user_embedding_from_path_with_attributes_1.00',
+        'user_embedding_from_path_with_attributes_0.80',
+        'user_embedding_from_path_with_attributes_0.60',
+        'user_embedding_from_path_with_attributes_0.40',
+        'user_embedding_from_path_with_attributes_0.20',
         'user_embedding_from_path_with_attributes_0.00',
         'new_user_embedding_from_path_with_attributes_0.00',
         ]
@@ -120,14 +131,26 @@ def batch_test(attribute, min_size=1, max_size=1):
             print result
             fout.write(result)
 
+def test_embedding():
+    x=[]
+    y=[]
+    for ratio in numpy.arange(0.,0.60,0.05):
+        print ratio
+        x.append(ratio)
+        y.append(single_test('user_embedding_from_path_with_attributes_%0.2f'%ratio,'gender'))
+    print x
+    print y
+
 if __name__=='__main__':
     #single_test('new_user_embedding_from_path_with_attributes_1.00','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.80','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.60','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.40','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.20','gender')
-    single_test('new_user_embedding_from_path_with_attributes_0.00','gender')
+    #single_test('new_user_embedding_from_path_with_attributes_0.00','gender')
+    #single_test('new_user_embedding_from_path_with_attributes_0.60','gender')
     #batch_test('gender',1,1)
     #batch_test('new_age',1,1)
     #batch_test('location',1,1)
     #single_test('user_embedding_from_path_with_attributes_0.75','gender')
+    test_embedding()
