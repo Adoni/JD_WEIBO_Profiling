@@ -62,6 +62,7 @@ def single_test(feature, attribute):
     print len(none_attribute_uids)
     train_data=[[],[]]
     test_data=[[],[]]
+    print zip(data[0],data[2])[:100]
     for index,uid in enumerate(data[0]):
         if uid in none_attribute_uids and random.random()<alpha:
         #if random.random()<0.2:
@@ -71,19 +72,20 @@ def single_test(feature, attribute):
             train_data[0].append(data[1][index])
             train_data[1].append(data[2][index])
     clf=LogisticRegression()
-    split_point=5000
     clf.fit(train_data[0], train_data[1])
     predicted_y=clf.predict(test_data[0])
     test_accuracy=accuracy_score(test_data[1],predicted_y)
     test_recall=recall_score(test_data[1],predicted_y)
     test_f1=f1_score(test_data[1],predicted_y)
-    print 'F1 of test data (%d %d): %0.2f'%(sum(test_data[1]),len(test_data[1]),test_f1)
+    print test_data[1][:100]
+    print predicted_y[:100]
+    print 'F1 of test data (%d %d): %0.2f'%(sum(test_data[1]),len(test_data[1])-sum(test_data[1]),test_f1)
     predicted_y=clf.predict(train_data[0])
     train_accuracy=accuracy_score(train_data[1],predicted_y)
     train_recall=recall_score(train_data[1],predicted_y)
     train_f1=f1_score(train_data[1],predicted_y)
-    print 'F1 of train data (%d %d): %0.2f'%(sum(train_data[1]),len(train_data[1]),train_f1)
-    return test_accuracy,test_recall,test_f1,train_accuracy,train_recall,train_f1
+    print 'F1 of train data (%d %d): %0.2f'%(sum(train_data[1]),len(train_data[1])-sum(train_data[1]),train_f1)
+    return [test_accuracy,test_recall,test_f1,train_accuracy,train_recall,train_f1]
 
 def batch_test(attribute, min_size=1, max_size=1):
     all_features=[
@@ -105,13 +107,33 @@ def batch_test(attribute, min_size=1, max_size=1):
         #'jd_review_length',
         #'jd_user_user_propagate1',
         #'jd_user_user_propagate2',
-        'user_embedding_from_path_with_attributes_1.00',
-        'user_embedding_from_path_with_attributes_0.80',
-        'user_embedding_from_path_with_attributes_0.60',
-        'user_embedding_from_path_with_attributes_0.40',
-        'user_embedding_from_path_with_attributes_0.20',
-        'user_embedding_from_path_with_attributes_0.00',
-        'new_user_embedding_from_path_with_attributes_0.00',
+        #'user_embedding_from_path_with_attributes_1.00',
+        #'user_embedding_from_path_with_attributes_0.90',
+        #'user_embedding_from_path_with_attributes_0.80',
+        #'user_embedding_from_path_with_attributes_0.70',
+        #'user_embedding_from_path_with_attributes_0.60',
+        #'user_embedding_from_path_with_attributes_0.50',
+        #'user_embedding_from_path_with_attributes_0.40',
+        #'user_embedding_from_path_with_attributes_0.30',
+        #'user_embedding_from_path_with_attributes_0.20',
+        #'user_embedding_from_path_with_attributes_0.10',
+        #'user_embedding_from_path_with_attributes_0.00',
+        #'new_user_embedding_from_path_with_attributes_0.00',
+        #'multi_user_embedding_100_0.80',
+        #'multi_user_embedding_001_0.80',
+        #'multi_user_embedding_101_0.80',
+        #'review_deep_walk_embedding',
+        #'user_embedding_from_path_and_labels_0.00',
+        #'user_embedding_from_path_and_labels_0.20',
+        #'user_embedding_from_path_and_labels_0.40',
+        #'user_embedding_from_path_and_labels_0.60',
+        #'user_embedding_from_path_and_labels_0.80',
+        #'user_review_embedding',
+        #'user_embedding_with_LINE',
+        #'user_embedding_from_DeepWalk_cluster',
+        #'user_embedding_from_DeepWalk_cluster_0.40',
+        #'user_embedding_from_DeepWalk_cluster_0.80',
+        'user_embedding_with_LINE_from_record_knn',
         ]
     fout=open('./results/Experiments_results_%s.result'%attribute,'a')
     fout.write('='*30+'\n')
@@ -125,32 +147,41 @@ def batch_test(attribute, min_size=1, max_size=1):
             #data=disarrange_data2(data)
             #data=disarrange_data(data)
             clf=LogisticRegression()
-            score_f1=cross_validation.cross_val_score(clf, data[1],data[2],cv=10,scoring='f1')
-            score_accuracy=cross_validation.cross_val_score(clf, data[1],data[2],cv=10,scoring='accuracy')
+            score_f1=cross_validation.cross_val_score(clf, data[1],data[2],cv=5,scoring='f1')
+            score_accuracy=cross_validation.cross_val_score(clf, data[1],data[2],cv=5,scoring='accuracy')
             result='F1: %0.2f (+/- %0.2f) || Accuracy: %0.2f (+/- %0.2f) || Features:%s\n'%(score_f1.mean(), score_f1.std()*2, score_accuracy.mean(), score_accuracy.std()*2, str(features))
             print result
             fout.write(result)
 
 def test_embedding():
-    x=[]
-    y=[]
-    for ratio in numpy.arange(0.,0.85,0.05):
-        print ratio
-        x.append(ratio)
-        y.append(single_test('user_embedding_from_path_with_attributes_%0.2f'%ratio,'gender'))
-    print x
-    print y
+    for beta in [0.5]:
+    #for beta in [0.0,0.3,0.6,0.9]:
+        x=[]
+        y=[]
+        for ratio in numpy.arange(0.0,0.85,0.10):
+            print ratio
+            tmpy=[]
+            for i in range(1):
+                tmpy.append(single_test('user_embedding_from_path_and_labels_%0.2f_%0.2f'%(ratio,beta),'gender'))
+                #tmpy.append(single_test('user_embedding_from_path_with_attributes_%0.2f'%(ratio),'gender'))
+            x.append(ratio)
+            y.append(list(numpy.average(tmpy,axis=0)))
+        fout=open('./results/single.result','a')
+        fout.write(str(beta)+'\n')
+        fout.write(str(x)+'\n')
+        fout.write(str(y)+'\n')
 
 if __name__=='__main__':
+    print 'Test'
     #single_test('new_user_embedding_from_path_with_attributes_1.00','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.80','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.60','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.40','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.20','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.00','gender')
-    #single_test('new_user_embedding_from_path_with_attributes_0.60','gender')
-    #batch_test('gender',1,1)
+    #single_test('user_embedding_from_path_with_attributes_0.80','gender')
+    #single_test('user_embedding_from_path_with_attributes_0.00','gender')
+    batch_test('gender',1,1)
     #batch_test('new_age',1,1)
     #batch_test('location',1,1)
-    single_test('multi_user_embedding_from_path_with_attributes_0.20','gender')
     #test_embedding()

@@ -26,11 +26,6 @@ class Graph:
         for i,node in enumerate(self.graph):
             self.degrees.append(len(node[1]['neibors']))
             self.indexes[node[0]]=i
-        print '========='
-        print len(self.degrees)
-        print len(self.graph)
-        print len(self.indexes)
-        print '========='
 
     def __getitem__(self, node_index):
         if node_index>=len(self.graph):
@@ -90,6 +85,42 @@ def get_a_random_path_from_graph(graph,length):
         path.append(node[0])
     return path
 
+def get_review_edges():
+    from pymongo import Connection
+    from collections import Counter
+    from my_progress_bar import progress_bar
+    users=Connection().jd.weibo_users
+    bar=progress_bar(users.count())
+    edges=[]
+    finish_count=0
+    for user in users.find():
+        reviews=' '.join(map(lambda behavior:' '.join(behavior['parsed_review']['review_general']),user['behaviors']))
+        counts=Counter(reviews.split(' ')).items()
+        for count in counts:
+            if count[1] is 0:
+                continue
+            edges.append([user['_id'],count[0],count[1]])
+            edges.append([count[0],user['_id'],count[1]])
+        finish_count+=1
+        bar.draw(finish_count)
+    return edges
+
+def get_mention_edges():
+    from pymongo import Connection
+    from helper import get_mentions
+    users=Connection().jd.weibo_users
+    edges=[]
+    mentions=get_mentions()
+    for user in users.find():
+        reviews=' '.join(map(lambda behavior:behavior['review']['review_general'],user['behaviors']))
+        counts=map(lambda mention:(mention,reviews.count(mention)),mentions)
+        for count in counts:
+            if count[1] is 0:
+                continue
+            edges.append([user['_id'],count[0],count[1]])
+            edges.append([count[0],user['_id'],count[1]])
+    return edges
+
 def get_attributes_edges(attribute, ratio):
     #ratio is the ratio of the count of users with attribute
     from pymongo import Connection
@@ -130,25 +161,41 @@ def deep_walk(graph, total_nodes_count):
 def output_pathes(pathes,file_name):
     fout=open(RAW_DATA_PATH+file_name+'.data','w')
     for path in pathes:
-        fout.write(' '.join(path)+'\n')
+        fout.write(' '.join(path).encode('utf8')+'\n')
 
-def multi_deep_walk(attribute_ratio):
+def multi_deep_walk(attribute_ratio,mode=[0,0,0]):
     import os
     graphs=[]
     graphs.append(Graph(map(lambda line:line[:-1].split(' '),open('/mnt/data1/adoni/jd_data/raw_data/jd_graph_from_shopping_record.data'))))
     attribute_edges,none_attribute_uids=get_attributes_edges('gender',attribute_ratio)
     graphs.append(Graph(attribute_edges))
+    graphs.append(Graph(get_mention_edges()))
     pathes=[]
-    pathes+=deep_walk(graphs[0],5000000)
-    pathes+=deep_walk(graphs[0],1000000)
-    raw_file_name='multi_user_path_with_attributes_%0.2f'%attribute_ratio
-    embedding_file_name='multi_user_embedding_from_path_with_attributes_%0.2f'%attribute_ratio
+    if mode[0] is 1:
+        pathes+=deep_walk(graphs[0],2000000)
+    if mode[1] is 1:
+        pathes+=deep_walk(graphs[1],20000*attribute_ratio)
+    if mode[2] is 1:
+        pathes+=deep_walk(graphs[2],5000000)
+    raw_file_name='multi_user_path_%d%d%d_%0.2f'%(mode[0],mode[1],mode[2],attribute_ratio)
+    embedding_file_name='multi_user_embedding_%d%d%d_%0.2f'%(mode[0],mode[1],mode[2],attribute_ratio)
     output_pathes(pathes,raw_file_name)
-    command='./word2vec -train %s.data -output %s.data -cbow 0 -size 200 -window 5 -negative 0 -hs 1 -sample 1e-3 -threads 20 -binary 0'%(RAW_DATA_PATH+raw_file_name, VECTORS_PATH+embedding_file_name)
+    command='./word2vec -train %s.data -output %s.data -cbow 1 -size 200 -window 5 -negative 0 -hs 1 -sample 1e-3 -threads 20 -binary 0'%(RAW_DATA_PATH+raw_file_name, VECTORS_PATH+embedding_file_name)
     os.system(command)
     output_matrix(embedding_file_name,embedding_file_name)
     from data_generator import save_vector_to_text
     save_vector_to_text(none_attribute_uids,'uids_none_attributes.vector',embedding_file_name)
+
+def review_deep_walk():
+    import os
+    graph=Graph(get_review_edges())
+    pathes=deep_walk(graph,10000000)
+    raw_file_name='review_deep_walk_path'
+    embedding_file_name='review_deep_walk_embedding'
+    output_pathes(pathes,raw_file_name)
+    command='./word2vec -train %s.data -output %s.data -cbow 0 -size 200 -window 5 -negative 0 -hs 1 -sample 1e-3 -threads 20 -binary 0'%(RAW_DATA_PATH+raw_file_name, VECTORS_PATH+embedding_file_name)
+    os.system(command)
+    output_matrix(embedding_file_name,embedding_file_name)
 
 def get_all_uids():
     from pymongo import Connection
@@ -182,6 +229,17 @@ def output_matrix(file_name,folder):
     save_vector_to_text(X,'x.matrix',folder)
     save_vector_to_text(vocab,'uids.vector',folder)
 
+def main():
+    multi_deep_walk(0.,[1,0,0])
+    #multi_deep_walk(0.,[0,0,1])
+    #multi_deep_walk(0.,[1,0,1])
+    #for ratio in numpy.arange(0.80,0.85,0.05):
+        #multi_deep_walk(ratio,[0,1,0])
+        #multi_deep_walk(ratio,[0,1,1])
+        #multi_deep_walk(ratio,[1,1,0])
+        #multi_deep_walk(ratio,[1,1,1])
+
 if __name__=='__main__':
-    for ratio in numpy.arange(0.0,0.85,0.05):
-        multi_deep_walk(ratio)
+    #get_review_edges()
+    main()
+    #review_deep_walk()

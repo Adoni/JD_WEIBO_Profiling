@@ -238,42 +238,6 @@ F1: 0.88 (+/- 0.11) || Accuracy: 0.87 (+/- 0.11) || Features:('user_embedding_fr
 F1: 0.85 (+/- 0.12) || Accuracy: 0.84 (+/- 0.16) || Features:('user_embedding_from_path_with_attributes_0.50', 'user_embedding_from_path_with_attributes_0.00')
 F1: 0.82 (+/- 0.14) || Accuracy: 0.81 (+/- 0.20) || Features:('user_embedding_from_path_with_attributes_0.25', 'user_embedding_from_path_with_attributes_0.00')
 ==============================
-2015-06-06 19:59:46.253469
---------------------
-Feature Count: 1
-F1: 0.94 (+/- 0.08) || Accuracy: 0.91 (+/- 0.13) || Features:('new_user_embedding_from_path_with_attributes_0.80',)
-==============================
-2015-06-06 20:15:05.309442
---------------------
-Feature Count: 1
-F1: 0.91 (+/- 0.07) || Accuracy: 0.85 (+/- 0.12) || Features:('user_embedding_from_path_with_attributes_1.00',)
-F1: 0.94 (+/- 0.08) || Accuracy: 0.91 (+/- 0.13) || Features:('new_user_embedding_from_path_with_attributes_0.80',)
-==============================
-2015-06-07 11:29:31.460227
---------------------
-Feature Count: 1
-F1: 0.90 (+/- 0.08) || Accuracy: 0.90 (+/- 0.08) || Features:('user_embedding_from_path_with_attributes_1.00',)
-==============================
-2015-06-07 11:30:51.591439
---------------------
-Feature Count: 1
-F1: 1.00 (+/- 0.00) || Accuracy: 1.00 (+/- 0.00) || Features:('new_user_embedding_from_path_with_attributes_1.00',)
-==============================
-2015-06-07 11:46:38.198954
---------------------
-Feature Count: 1
-F1: 1.00 (+/- 0.00) || Accuracy: 1.00 (+/- 0.00) || Features:('new_user_embedding_from_path_with_attributes_1.00',)
-==============================
-2015-06-07 11:47:56.826769
---------------------
-Feature Count: 1
-F1: 0.96 (+/- 0.09) || Accuracy: 0.95 (+/- 0.11) || Features:('new_user_embedding_from_path_with_attributes_0.80',)
-==============================
-2015-06-07 11:49:43.208160
---------------------
-Feature Count: 1
-F1: 0.96 (+/- 0.09) || Accuracy: 0.95 (+/- 0.11) || Features:('new_user_embedding_from_path_with_attributes_0.80',)
-==============================
 2015-06-07 11:57:39.404856
 --------------------
 Feature Count: 1
@@ -295,3 +259,283 @@ F1: 0.82 (+/- 0.14) || Accuracy: 0.81 (+/- 0.20) || Features:('user_embedding_fr
 F1: 0.79 (+/- 0.16) || Accuracy: 0.78 (+/- 0.24) || Features:('user_embedding_from_path_with_attributes_0.20',)
 F1: 0.75 (+/- 0.20) || Accuracy: 0.74 (+/- 0.27) || Features:('user_embedding_from_path_with_attributes_0.00',)
 F1: 0.76 (+/- 0.20) || Accuracy: 0.74 (+/- 0.26) || Features:('new_user_embedding_from_path_with_attributes_0.00',)
+==============================
+2015-06-09 15:05:56.944355
+--------------------
+Feature Count: 1
+==============================
+2015-06-09 15:06:25.257124
+--------------------
+Feature Count: 1
+F1: 0.74 (+/- 0.19) || Accuracy: 0.72 (+/- 0.26) || Features:('multi_user_embedding_100_0.80',)
+F1: 0.70 (+/- 0.07) || Accuracy: 0.70 (+/- 0.05) || Features:('multi_user_embedding_001_0.80',)
+==============================
+2015-06-09 15:07:54.471931
+--------------------
+Feature Count: 1
+==============================
+2015-06-09 15:08:01.629485
+--------------------
+Feature Count: 2
+F1: 0.70 (+/- 0.06) || Accuracy: 0.70 (+/- 0.04) || Features:('multi_user_embedding_100_0.80', 'multi_user_embedding_001_0.80')
+==============================
+2015-06-09 15:09:19.157392
+--------------------
+Feature Count: 2
+F1: 0.70 (+/- 0.06) || Accuracy: 0.70 (+/- 0.04) || Features:('multi_user_embedding_100_0.80', 'multi_user_embedding_001_0.80')
+==============================
+2015-06-09 15:44:55.264026
+--------------------
+Feature Count: 2
+F1: 0.76 (+/- 0.15) || Accuracy: 0.75 (+/- 0.22) || Features:('graph_embedding_from_review', 'multi_user_embedding_100_0.80')
+==============================
+2015-06-09 15:47:42.183532
+--------------------
+Feature Count: 1
+F1: 0.68 (+/- 0.11) || Accuracy: 0.68 (+/- 0.09) || Features:('graph_embedding_from_review',)
+F1: 0.74 (+/- 0.19) || Accuracy: 0.72 (+/- 0.26) || Features:('multi_user_embedding_100_0.80',)
+--------------------
+Feature Count: 2
+F1: 0.76 (+/- 0.15) || Accuracy: 0.75 (+/- 0.22) || Features:('graph_embedding_from_review', 'multi_user_embedding_100_0.80')
+==============================
+2015-06-09 15:55:39.433306
+--------------------
+Feature Count: 1
+F1: 0.68 (+/- 0.11) || Accuracy: 0.68 (+/- 0.09) || Features:('graph_embedding_from_review',)
+F1: 0.74 (+/- 0.19) || Accuracy: 0.72 (+/- 0.26) || Features:('multi_user_embedding_100_0.80',)
+F1: 0.70 (+/- 0.07) || Accuracy: 0.70 (+/- 0.05) || Features:('multi_user_embedding_001_0.80',)
+--------------------
+Feature Count: 2
+F1: 0.76 (+/- 0.15) || Accuracy: 0.75 (+/- 0.22) || Features:('graph_embedding_from_review', 'multi_user_embedding_100_0.80')
+F1: 0.78 (+/- 0.04) || Accuracy: 0.78 (+/- 0.06) || Features:('graph_embedding_from_review', 'multi_user_embedding_001_0.80')
+F1: 0.70 (+/- 0.06) || Accuracy: 0.70 (+/- 0.04) || Features:('multi_user_embedding_100_0.80', 'multi_user_embedding_001_0.80')
+==============================
+2015-06-09 19:49:21.960151
+--------------------
+Feature Count: 1
+F1: 0.71 (+/- 0.11) || Accuracy: 0.71 (+/- 0.09) || Features:('review_deep_walk_embedding',)
+--------------------
+Feature Count: 2
+==============================
+2015-06-09 19:52:28.211769
+--------------------
+Feature Count: 2
+F1: 0.76 (+/- 0.06) || Accuracy: 0.76 (+/- 0.06) || Features:('multi_user_embedding_100_0.80', 'review_deep_walk_embedding')
+==============================
+2015-06-09 20:14:28.171188
+--------------------
+Feature Count: 2
+==============================
+2015-06-09 20:14:39.776942
+--------------------
+Feature Count: 1
+F1: 0.85 (+/- 0.18) || Accuracy: 0.85 (+/- 0.17) || Features:('user_embedding_from_path_with_attributes_1.00',)
+F1: 0.89 (+/- 0.09) || Accuracy: 0.88 (+/- 0.08) || Features:('user_embedding_from_path_with_attributes_0.90',)
+==============================
+2015-06-10 09:44:59.481377
+--------------------
+Feature Count: 1
+F1: 0.85 (+/- 0.18) || Accuracy: 0.85 (+/- 0.17) || Features:('user_embedding_from_path_with_attributes_1.00',)
+==============================
+2015-06-10 10:35:34.323065
+--------------------
+Feature Count: 1
+F1: 0.79 (+/- 0.16) || Accuracy: 0.77 (+/- 0.24) || Features:('user_embedding_from_path_with_attributes_1.00',)
+F1: 0.79 (+/- 0.18) || Accuracy: 0.77 (+/- 0.26) || Features:('user_embedding_from_path_with_attributes_0.90',)
+F1: 0.78 (+/- 0.16) || Accuracy: 0.77 (+/- 0.24) || Features:('user_embedding_from_path_with_attributes_0.80',)
+F1: 0.85 (+/- 0.10) || Accuracy: 0.85 (+/- 0.13) || Features:('user_embedding_from_path_with_attributes_0.70',)
+F1: 0.84 (+/- 0.11) || Accuracy: 0.83 (+/- 0.14) || Features:('user_embedding_from_path_with_attributes_0.60',)
+==============================
+2015-06-10 13:25:23.959078
+--------------------
+Feature Count: 1
+F1: 0.75 (+/- 0.13) || Accuracy: 0.74 (+/- 0.20) || Features:('user_embedding_from_path_with_attributes_1.00',)
+F1: 0.75 (+/- 0.15) || Accuracy: 0.74 (+/- 0.21) || Features:('user_embedding_from_path_with_attributes_0.90',)
+F1: 0.75 (+/- 0.15) || Accuracy: 0.74 (+/- 0.21) || Features:('user_embedding_from_path_with_attributes_0.80',)
+F1: 0.76 (+/- 0.15) || Accuracy: 0.75 (+/- 0.20) || Features:('user_embedding_from_path_with_attributes_0.70',)
+F1: 0.76 (+/- 0.16) || Accuracy: 0.75 (+/- 0.19) || Features:('user_embedding_from_path_with_attributes_0.60',)
+F1: 0.76 (+/- 0.16) || Accuracy: 0.75 (+/- 0.20) || Features:('user_embedding_from_path_with_attributes_0.50',)
+F1: 0.76 (+/- 0.14) || Accuracy: 0.75 (+/- 0.21) || Features:('user_embedding_from_path_with_attributes_0.40',)
+F1: 0.76 (+/- 0.15) || Accuracy: 0.75 (+/- 0.20) || Features:('user_embedding_from_path_with_attributes_0.30',)
+F1: 0.75 (+/- 0.17) || Accuracy: 0.74 (+/- 0.22) || Features:('user_embedding_from_path_with_attributes_0.20',)
+F1: 0.74 (+/- 0.18) || Accuracy: 0.73 (+/- 0.23) || Features:('user_embedding_from_path_with_attributes_0.10',)
+F1: 0.73 (+/- 0.19) || Accuracy: 0.72 (+/- 0.25) || Features:('user_embedding_from_path_with_attributes_0.00',)
+==============================
+2015-06-11 16:19:45.829696
+--------------------
+Feature Count: 1
+F1: 0.75 (+/- 0.21) || Accuracy: 0.74 (+/- 0.27) || Features:('user_embedding_from_path_and_labels_0.00',)
+==============================
+2015-06-11 16:20:33.131866
+--------------------
+Feature Count: 1
+F1: 0.75 (+/- 0.21) || Accuracy: 0.74 (+/- 0.27) || Features:('user_embedding_from_path_and_labels_0.00',)
+==============================
+2015-06-11 16:40:11.513102
+--------------------
+Feature Count: 1
+==============================
+2015-06-11 16:57:57.674836
+--------------------
+Feature Count: 1
+F1: 0.86 (+/- 0.00) || Accuracy: 0.75 (+/- 0.00) || Features:('user_embedding_from_path_and_labels_0.00',)
+==============================
+2015-06-11 16:59:43.900799
+--------------------
+Feature Count: 1
+F1: 0.86 (+/- 0.00) || Accuracy: 0.75 (+/- 0.00) || Features:('user_embedding_from_path_and_labels_0.00',)
+==============================
+2015-06-11 19:14:36.513216
+--------------------
+Feature Count: 1
+F1: 0.75 (+/- 0.22) || Accuracy: 0.74 (+/- 0.27) || Features:('user_embedding_from_path_and_labels_0.00',)
+==============================
+2015-06-13 15:59:32.122674
+--------------------
+Feature Count: 1
+F1: 0.67 (+/- 0.11) || Accuracy: 0.60 (+/- 0.19) || Features:('user_review_embedding',)
+==============================
+2015-06-13 16:03:29.800929
+--------------------
+Feature Count: 1
+F1: 0.67 (+/- 0.11) || Accuracy: 0.59 (+/- 0.19) || Features:('user_review_embedding',)
+==============================
+2015-06-13 16:39:37.993080
+--------------------
+Feature Count: 1
+F1: 0.73 (+/- 0.22) || Accuracy: 0.72 (+/- 0.26) || Features:('user_embedding_from_path_and_labels_0.00',)
+F1: 0.72 (+/- 0.21) || Accuracy: 0.72 (+/- 0.25) || Features:('user_embedding_from_path_and_labels_0.20',)
+F1: 0.73 (+/- 0.22) || Accuracy: 0.72 (+/- 0.25) || Features:('user_embedding_from_path_and_labels_0.40',)
+F1: 0.72 (+/- 0.21) || Accuracy: 0.72 (+/- 0.24) || Features:('user_embedding_from_path_and_labels_0.60',)
+F1: 0.72 (+/- 0.22) || Accuracy: 0.72 (+/- 0.25) || Features:('user_embedding_from_path_and_labels_0.80',)
+==============================
+2015-06-13 20:06:05.524075
+--------------------
+Feature Count: 1
+F1: 0.64 (+/- 0.07) || Accuracy: 0.63 (+/- 0.07) || Features:('user_embedding_with_LINE',)
+==============================
+2015-06-13 20:51:51.255162
+--------------------
+Feature Count: 1
+F1: 0.49 (+/- 0.14) || Accuracy: 0.53 (+/- 0.09) || Features:('user_embedding_from_DeepWalk_cluster',)
+==============================
+2015-06-13 21:26:32.105572
+--------------------
+Feature Count: 1
+F1: 0.49 (+/- 0.14) || Accuracy: 0.53 (+/- 0.09) || Features:('user_embedding_from_DeepWalk_cluster',)
+==============================
+2015-06-13 21:27:20.573516
+--------------------
+Feature Count: 1
+F1: 0.49 (+/- 0.14) || Accuracy: 0.53 (+/- 0.09) || Features:('user_embedding_from_DeepWalk_cluster',)
+F1: 0.49 (+/- 0.15) || Accuracy: 0.53 (+/- 0.10) || Features:('user_embedding_from_DeepWalk_cluster_0.40',)
+F1: 0.50 (+/- 0.14) || Accuracy: 0.54 (+/- 0.09) || Features:('user_embedding_from_DeepWalk_cluster_0.80',)
+==============================
+2015-06-15 20:51:16.954395
+--------------------
+Feature Count: 1
+==============================
+2015-06-16 00:38:42.473056
+--------------------
+Feature Count: 1
+F1: 0.58 (+/- 0.06) || Accuracy: 0.56 (+/- 0.05) || Features:('balance_user_embedding_from_path_with_attributes_0.00',)
+F1: 0.78 (+/- 0.15) || Accuracy: 0.78 (+/- 0.15) || Features:('balance_user_embedding_from_path_with_attributes_0.80',)
+==============================
+2015-06-16 09:47:41.794965
+--------------------
+Feature Count: 1
+F1: 0.58 (+/- 0.06) || Accuracy: 0.56 (+/- 0.05) || Features:('balance_user_embedding_from_path_with_attributes_0.00',)
+F1: 0.78 (+/- 0.15) || Accuracy: 0.78 (+/- 0.15) || Features:('balance_user_embedding_from_path_with_attributes_0.80',)
+==============================
+2015-06-16 14:29:25.239582
+--------------------
+Feature Count: 1
+==============================
+2015-06-16 14:30:53.671347
+--------------------
+Feature Count: 1
+F1: 0.62 (+/- 0.12) || Accuracy: 0.64 (+/- 0.06) || Features:('jd_user_simple',)
+==============================
+2015-06-16 16:27:59.368908
+--------------------
+Feature Count: 1
+F1: 0.56 (+/- 0.04) || Accuracy: 0.56 (+/- 0.02) || Features:('balance_user_embedding_from_path_and_labels_0.00_0.50',)
+==============================
+2015-06-16 16:35:47.871121
+--------------------
+Feature Count: 1
+==============================
+2015-06-16 16:36:56.205480
+--------------------
+Feature Count: 1
+==============================
+2015-06-16 16:37:22.346290
+--------------------
+Feature Count: 1
+==============================
+2015-06-16 16:37:57.947889
+--------------------
+Feature Count: 1
+F1: 0.56 (+/- 0.03) || Accuracy: 0.56 (+/- 0.02) || Features:('balance_user_embedding_from_path_and_labels_0.00_0.50',)
+==============================
+2015-06-16 16:38:41.916176
+--------------------
+Feature Count: 1
+F1: 0.57 (+/- 0.02) || Accuracy: 0.57 (+/- 0.01) || Features:('balance_user_embedding_from_path_and_labels_0.00_0.50',)
+==============================
+2015-06-16 16:41:11.429877
+--------------------
+Feature Count: 1
+==============================
+2015-06-16 17:17:12.456214
+--------------------
+Feature Count: 1
+==============================
+2015-06-16 17:17:25.306064
+--------------------
+Feature Count: 1
+F1: 0.80 (+/- 0.03) || Accuracy: 0.80 (+/- 0.04) || Features:('balance_user_embedding_from_path_with_attributes_0.80',)
+==============================
+2015-06-16 17:25:25.530703
+--------------------
+Feature Count: 1
+F1: 0.57 (+/- 0.02) || Accuracy: 0.57 (+/- 0.01) || Features:('balance_user_embedding_from_path_and_labels_0.00_0.50',)
+==============================
+2015-06-16 17:26:29.827950
+--------------------
+Feature Count: 1
+F1: 0.80 (+/- 0.03) || Accuracy: 0.80 (+/- 0.04) || Features:('balance_user_embedding_from_path_with_attributes_0.80',)
+==============================
+2015-06-16 17:47:07.304288
+--------------------
+Feature Count: 1
+F1: 0.80 (+/- 0.03) || Accuracy: 0.80 (+/- 0.04) || Features:('balance_user_embedding_from_path_with_attributes_0.80',)
+==============================
+2015-06-17 20:12:26.578294
+--------------------
+Feature Count: 1
+==============================
+2015-06-18 09:33:04.679870
+--------------------
+Feature Count: 1
+F1: 0.63 (+/- 0.03) || Accuracy: 0.64 (+/- 0.02) || Features:('jd_user_simple',)
+==============================
+2015-06-18 13:46:22.539518
+--------------------
+Feature Count: 1
+F1: 0.62 (+/- 0.03) || Accuracy: 0.64 (+/- 0.02) || Features:('jd_user_simple',)
+==============================
+2015-06-18 13:48:37.723302
+--------------------
+Feature Count: 1
+F1: 0.62 (+/- 0.02) || Accuracy: 0.64 (+/- 0.01) || Features:('jd_user_simple',)
+==============================
+2015-06-18 13:52:52.288662
+--------------------
+Feature Count: 1
+F1: 0.53 (+/- 0.03) || Accuracy: 0.54 (+/- 0.04) || Features:('user_embedding_from_path_with_attributes_0.00',)
+==============================
+2015-06-18 18:37:28.565935
+--------------------
+Feature Count: 1
+F1: 0.64 (+/- 0.01) || Accuracy: 0.63 (+/- 0.01) || Features:('user_embedding_with_LINE_from_record_knn',)

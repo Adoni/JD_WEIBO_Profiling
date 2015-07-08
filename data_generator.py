@@ -240,7 +240,7 @@ def output_simple_matrix(feature_length=10000):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -273,7 +273,7 @@ def output_simple_review_matrix(feature_length=10000):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     total_count=users.count()
     #bar=progress_bar(total_count)
     finish_count=0
@@ -302,7 +302,7 @@ def output_shopping_tf_matrix(feature_length=3):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -337,7 +337,7 @@ def output_sentence_embedding_matrix(file_name1,file_name2):
     embedding=get_user_embedding(file_name1)
     #embedding=load_user_embedding(file_name1)
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -364,7 +364,7 @@ def output_graph_embedding_matrix(file_name1,file_name2,manual=False):
     from pymongo import Connection
     all_x=[]
     index=0
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     uids=[]
     for user in users.find():
         if file_name1=='jd_graph_normalize2':
@@ -374,7 +374,7 @@ def output_graph_embedding_matrix(file_name1,file_name2,manual=False):
     print 'Got uids'
     embedding=load_graph_embedding(set(uids),file_name1)
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -413,7 +413,7 @@ def output_goods_class_markov_matrix(manual=False):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -450,7 +450,7 @@ def output_goods_class_matrix(order=1):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -493,7 +493,7 @@ def output_review_matrix(order,feature_length=1000):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -531,7 +531,7 @@ def output_review_length_matrix(feature_length=1000):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -578,7 +578,7 @@ def output_review_star_matrix(feature_length=1000):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -609,7 +609,7 @@ def output_user_user_propagate_vectors(order):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     vectors=load_user_user_graph_propagate_vector(order)
     total_count=users.count()
     bar=progress_bar(total_count)
@@ -633,6 +633,80 @@ def output_user_user_propagate_vectors(order):
     return
     return dump_train_valid_test(all_x, all_y, 'jd_user_user_propagate')
 
+def output_review_embedding_matrix():
+    from helper import get_mentions
+    from pymongo import Connection
+    from my_vector_reader import read_vectors
+    all_x=[]
+    #进度条相关参数
+    users=Connection().jd.gender_users
+    bar=progress_bar(users.count())
+    finish_count=0
+    uids=[]
+    mentions=get_mentions()
+    #review_vocab,review_embedding=read_vectors('/mnt/data1/adoni/jd_data/vectors/word_vectors.data','utf8')
+    review_vocab,review_embedding=read_vectors('../myword2vec/word_vectors.data','utf8')
+    mentions=filter(lambda d:d in review_vocab,mentions)
+    mention_embedding=map(lambda x:review_embedding[review_vocab.index(x)],mentions)
+    vector_size=len(mention_embedding[0])
+    for user in users.find():
+        x=numpy.zeros(vector_size)
+        review=' '.join(map(lambda d:d['review']['review_general'],user['behaviors']))
+        for index,mention in enumerate(mentions):
+            count=review.count(mention)
+            x+=count*mention_embedding[index]
+        if not x.any():
+            continue
+        all_x.append(x)
+        uids.append(user['_id'])
+        finish_count+=1
+        bar.draw(value=finish_count)
+    all_x=numpy.array(all_x)
+    dump_user_vector(all_x,uids,'user_review_embedding')
+
+def output_user_embedding_with_LINE():
+    from pymongo import Connection
+    from my_vector_reader import read_vectors
+    all_x=[]
+    users=Connection().jd.gender_users
+    bar=progress_bar(users.count())
+    finish_count=0
+    uids=[]
+    vocab,embedding=read_vectors('/mnt/data1/adoni/jd_data/raw_data/user_embedding_with_LINE.data','utf8')
+    for user in users.find():
+        if user['_id'] in vocab:
+            x=embedding[vocab.index(user['_id'])]
+        else:
+            print 'not in vocab'
+            continue
+        all_x.append(x)
+        uids.append(user['_id'])
+        finish_count+=1
+        bar.draw(value=finish_count)
+    all_x=numpy.array(all_x)
+    dump_user_vector(all_x,uids,'user_embedding_with_LINE')
+
+def output_user_embedding_with_DeepWalk_cluster(ratio):
+    from pymongo import Connection
+    from my_vector_reader import simple_embedding_cluster_viewer
+    all_x=[]
+    users=Connection().jd.gender_users
+    bar=progress_bar(users.count())
+    finish_count=0
+    uids=[]
+    viewer=simple_embedding_cluster_viewer('/mnt/data1/adoni/jd_data/vectors/user_embedding_from_path_and_labels_%0.2f.data'%ratio,'utf8')
+    for user in users.find():
+        neibors=viewer.get_closest_words(user['_id'])
+        if neibors==[]:
+            continue
+        x=numpy.sum(map(lambda w:viewer[w],neibors),axis=0)
+        all_x.append(x)
+        uids.append(user['_id'])
+        finish_count+=1
+        bar.draw(value=finish_count)
+    all_x=numpy.array(all_x)
+    dump_user_vector(all_x,uids,'user_embedding_from_DeepWalk_cluster_%0.2f'%ratio)
+
 def pca_process():
     from scipy.stats import pearsonr
     from minepy import MINE
@@ -648,9 +722,9 @@ def pca_process():
     for item in score:
         fout.write("%d %f\n"%(item[0],item[1]))
 
-def get_y(uids, profile_key):
+def get_y(profile_key):
     from pymongo import Connection
-    users=Connection().jd.weibo_users
+    users=Connection().jd.gender_users
     all_y=dict()
     for user in users.find():
         value=user['profile'][profile_key]
@@ -659,8 +733,7 @@ def get_y(uids, profile_key):
         except:
             value=-1
         all_y[user['_id']]=value
-    y=map(lambda x:all_y[x], uids)
-    return y
+    return all_y
 
 def merge_different_vectors(vector_folders, profile_key):
     all_uids=[]
@@ -673,7 +746,7 @@ def merge_different_vectors(vector_folders, profile_key):
     for folder in vector_folders:
         print folder
         if folder in slow_folers:
-            x,y,uids=slow_folers[folder]()
+            x,uids=slow_folers[folder]()
             all_uids.append(uids)
             all_x.append(x)
             print 'done'
@@ -683,14 +756,17 @@ def merge_different_vectors(vector_folders, profile_key):
     uids_order=all_uids[0]
     for uids in all_uids:
         uids_order=filter(lambda x:x in uids_order, uids)
+    all_y=get_y(profile_key)
+    uids_order=filter(lambda x:x in uids_order, all_y.keys())
     x=[]
+    y=[]
     for uid in uids_order:
         tmp_x=[]
         for i,uids in enumerate(all_uids):
             index=uids.index(uid)
             tmp_x+=list(all_x[i][index])
         x.append(tmp_x)
-    y=get_y(uids_order,profile_key)
+        y.append(all_y[uid])
     return dump_train_valid_test(x,y,uids_order)
 
 def get_data(feature_length=1000):
@@ -728,7 +804,7 @@ if __name__=='__main__':
     #output_goods_class_markov_matrix()
     #output_sentence_embedding_matrix('user_embedding_from_shopping_sequence','jd_user_embedding')
     #output_sentence_embedding_matrix('user_embedding_from_shopping_sequence_with_item_class','jd_user_embedding_with_item_class')
-    output_sentence_embedding_matrix('user_embedding_from_review','jd_user_embedding_from_review')
+    #output_sentence_embedding_matrix('user_embedding_from_review','jd_user_embedding_from_review')
     #output_review_matrix(1)
     #output_review_matrix(2)
     #output_review_star_matrix()
@@ -738,3 +814,8 @@ if __name__=='__main__':
     #output_user_user_propagate_vectors(2)
     #merge_different_vectors(['jd_good_class1'],'age')
     #pca_process()
+    #output_review_embedding_matrix()
+    #output_user_embedding_with_LINE()
+    #output_user_embedding_with_DeepWalk_cluster(0.00)
+    #output_user_embedding_with_DeepWalk_cluster(0.40)
+    #output_user_embedding_with_DeepWalk_cluster(0.80)
