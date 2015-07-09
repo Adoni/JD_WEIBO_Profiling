@@ -48,8 +48,6 @@ def weighted_random_select(weights):
         return None
     rnd = random.random() * sum(weights)
     for i, w in enumerate(weights):
-        #print i
-        #print w
         rnd -= w
         if rnd < 0:
             return i

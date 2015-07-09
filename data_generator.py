@@ -5,15 +5,15 @@ import json
 import pickle
 import sys
 from my_progress_bar import progress_bar
+from settings import MATRIXES_DIR
 
 access_token = '2.00L9khmFlxpd6C91aec9ef010s3KCc'
 word_vector_size=500
 time_vector_size=24
-GLOBAL_PATH='/mnt/data1/adoni/jd_data/matrixes/'
 
 def save_vector_to_text(vector, file_name, folder):
     import os
-    path=GLOBAL_PATH+folder+'/'
+    path=MATRIXES_DIR+folder+'/'
     print 'Try to save vector in '+path+file_name
     if not os.path.exists(path):
         os.makedirs(path)
@@ -30,7 +30,7 @@ def save_vector_to_text(vector, file_name, folder):
 
 def load_vector_from_text(file_name, folder, file_type):
     import os
-    path=GLOBAL_PATH+folder+'/'
+    path=MATRIXES_DIR+folder+'/'
     print 'Try to load vector in '+path+file_name
     if file_type=='list':
         fout=open(path+file_name)

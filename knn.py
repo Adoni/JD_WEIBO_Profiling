@@ -4,8 +4,7 @@ import time
 from numpy import *
 from math import sqrt
 from my_progress_bar import progress_bar
-product_hash={}
-user_hash={}
+from settings import RAW_DATA_DIR
 
 def construct_knn():
     from pymongo import Connection
