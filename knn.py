@@ -19,7 +19,7 @@ def construct_knn():
 
     finish_count=0
     bar=progress_bar(len(shopping_record))
-    fout=open('./knn_graph_from_shopping_record.data','w')
+    fout=open(RAW_DATA_DIR+'knn_graph_from_shopping_record.data','w')
     print len(shopping_record)
     for uid1 in shopping_record:
         finish_count+=1

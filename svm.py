@@ -71,15 +71,19 @@ def single_test(feature, attribute):
         else:
             train_data[0].append(data[1][index])
             train_data[1].append(data[2][index])
+    print len(test_data[1])
+    print sum(test_data[1])
+    print len(train_data[1])
+    print sum(train_data[1])
     clf=LogisticRegression()
     clf.fit(train_data[0], train_data[1])
     predicted_y=clf.predict(test_data[0])
     test_accuracy=accuracy_score(test_data[1],predicted_y)
     test_recall=recall_score(test_data[1],predicted_y)
     test_f1=f1_score(test_data[1],predicted_y)
-    print test_data[1][:100]
-    print predicted_y[:100]
+    print zip(test_data[1][:100],predicted_y[:100])
     print 'F1 of test data (%d %d): %0.2f'%(sum(test_data[1]),len(test_data[1])-sum(test_data[1]),test_f1)
+    print 'Accuracy of test data (%d %d): %0.2f'%(sum(test_data[1]),len(test_data[1])-sum(test_data[1]),test_accuracy)
     predicted_y=clf.predict(train_data[0])
     train_accuracy=accuracy_score(train_data[1],predicted_y)
     train_recall=recall_score(train_data[1],predicted_y)
@@ -133,7 +137,8 @@ def batch_test(attribute, min_size=1, max_size=1):
         #'user_embedding_from_DeepWalk_cluster',
         #'user_embedding_from_DeepWalk_cluster_0.40',
         #'user_embedding_from_DeepWalk_cluster_0.80',
-        'user_embedding_with_LINE_from_record_knn',
+        #'user_embedding_with_LINE_from_record_knn',
+        'user_embedding_from_path_with_attributes_0.00',
         ]
     fout=open('./results/Experiments_results_%s.result'%attribute,'a')
     fout.write('='*30+'\n')
@@ -180,8 +185,8 @@ if __name__=='__main__':
     #single_test('new_user_embedding_from_path_with_attributes_0.20','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.00','gender')
     #single_test('user_embedding_from_path_with_attributes_0.80','gender')
-    #single_test('user_embedding_from_path_with_attributes_0.00','gender')
-    batch_test('gender',1,1)
+    single_test('jd_user_simple','gender')
+    #batch_test('gender',1,1)
     #batch_test('new_age',1,1)
     #batch_test('location',1,1)
     #test_embedding()

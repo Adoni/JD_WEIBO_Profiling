@@ -1,8 +1,8 @@
 import random
 import numpy
-MATRIX_PATH='/mnt/data1/adoni/jd_data/matrixes/'
-VECTORS_PATH='/mnt/data1/adoni/jd_data/vectors/'
-RAW_DATA_PATH='/mnt/data1/adoni/jd_data/raw_data/'
+from settings import RAW_DATA_DIR
+from settings import VECTORS_DIR
+from settings import MATRIXES_DIR
 class Graph:
     def __init__(self, file_name):
         self.graph=[]
@@ -49,7 +49,7 @@ def weighted_random_select(weights):
     rnd = random.random() * sum(weights)
     for i, w in enumerate(weights):
         rnd -= w
-        if rnd < 0:
+        if rnd <= 0:
             return i
 
 def get_a_random_path_from_graph(graph,length):
@@ -97,13 +97,13 @@ def deep_walk(total_nodes_count, attribute_ratio,attribute_type,insert_type):
     none_attributes=filter(lambda uid:'None' in attributes[uid], attributes.keys())
     attributes=dict(filter(lambda x:'None' not in x[1], attributes.items()))
     print 'Get attributes done'
-    graph=Graph('/mnt/data1/adoni/jd_data/raw_data/knn_graph_from_shopping_record.data')
+    graph=Graph(RAW_DATA_DIR+'knn_graph_from_shopping_record.data')
     graph.to_list_graph()
     print 'Get graph done'
     path=get_a_random_path_from_graph(graph, total_nodes_count)
     raw_file_name='user_path_with_attributes_%0.2f'%attribute_ratio
     embedding_file_name='user_embedding_from_path_with_attributes_%0.2f'%attribute_ratio
-    fout_with_attribute=open(RAW_DATA_PATH+raw_file_name+'.data','w')
+    fout_with_attribute=open(RAW_DATA_DIR+raw_file_name+'.data','w')
     #fout_with_attribute.write(' '.join(path)+'\n')
     new_path=[]
     for node in path:
@@ -112,7 +112,8 @@ def deep_walk(total_nodes_count, attribute_ratio,attribute_type,insert_type):
             new_path.append(attributes[node])
     fout_with_attribute.write(' '.join(new_path)+'\n')
     print '\nEmbedding...'
-    command='./word2vec -train %s.data -output %s.data -cbow 0 -size 100 -window %d -negative 0 -hs 1 -sample 1e-3 -threads 20 -binary 0'%(RAW_DATA_PATH+raw_file_name, VECTORS_PATH+embedding_file_name,5)#int(5*(1+ratio)))
+    command='./word2vec -train %s.data -output %s.data -cbow 0 -size 100 -window %d -negative 0 -hs 1 -sample 1e-3 \
+    -threads 20 -binary 0'%(RAW_DATA_DIR+raw_file_name, VECTORS_DIR+embedding_file_name,5)
     print command
     os.system(command)
     print '\nEmbedding Done'
@@ -132,7 +133,7 @@ def output_matrix(file_name,folder):
     import numpy
     from my_vector_reader import read_vectors
     from data_generator import save_vector_to_text
-    file_name=VECTORS_PATH+file_name+'.data'
+    file_name=VECTORS_DIR+file_name+'.data'
     uids=get_all_uids()
     embedding=read_vectors(file_name,'utf8','DICT')
     vocab=filter(lambda uid:uid in embedding,uids)
@@ -144,4 +145,5 @@ def output_matrix(file_name,folder):
 if __name__=='__main__':
     #for ratio in numpy.arange(start=0.00,stop=0.85,step=0.10):
     #    deep_walk(2000000,ratio,'gender','old')
-    output_matrix('user_embedding_with_LINE_from_record_knn','user_embedding_with_LINE_from_record_knn')
+    deep_walk(10000000,0.00,'gender','old')
+    #output_matrix('user_embedding_with_LINE_from_record_knn','user_embedding_with_LINE_from_record_knn')

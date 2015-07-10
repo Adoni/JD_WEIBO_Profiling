@@ -65,52 +65,30 @@ def dump_user_vector(x,uids,folder):
     #pickle.dump((uids,user_vector),open('/mnt/data1/adoni/jd_data/matrixes/'+file_name+'.matrix','wb'))
 
 def dump_train_valid_test(x,y,uids):
+    from helper import balance
     print 'Dump'
-    if not len(x)==len(y):
-        raise Exception('The size of x is not equel with that of y')
-
+    data=zip(uids,x,y)
+    data=filter(lambda d:not d[2]==-1,data)
     #数据集平衡
-    counts=[0]*(max(y)+1)
-    for value in y:
-        if value==-1:
-            continue
-        counts[value]+=1
-    print counts
-    MAX_COUNT=min(counts)
-
-    #构建平衡数据集
-    all_x=[]
-    all_y=[]
-    all_uids=[]
-    counts=[0]*(max(y)+1)
-    for i in range(0,len(x)):
-        if y[i]==-1:
-            continue
-        if not numpy.any(x[i]):
-            continue
-        if counts[y[i]]<MAX_COUNT:
-            all_x.append(x[i])
-            all_y.append(y[i])
-            all_uids.append(uids[i])
-            counts[y[i]]+=1
-    if not len(all_x)==len(all_y):
-        raise Exception('The size of x is not equel with that of y')
+    data=balance(data,target_index=2)
+    all_uids=map(lambda d:d[0],data)
+    all_x=map(lambda d:d[1],data)
+    all_y=map(lambda d:d[2],data)
     all_x=numpy.array(all_x)
     all_y=numpy.array(all_y)
 
     #进行归一化
-    b=numpy.max(all_x,axis=0)
-    c=numpy.min(all_x,axis=0)
-    pickle.dump((b,c),open('./normal','wb'))
-    for i in range(all_x.shape[1]):
-        if b[i]==c[i]:
-            all_x[:,i]=all_x[:,i]-all_x[:,i]
-        else:
-            all_x[:,i]=(all_x[:,i]-c[i])/(b[i]-c[i])
+    #b=numpy.max(all_x,axis=0)
+    #c=numpy.min(all_x,axis=0)
+    #pickle.dump((b,c),open('./normal','wb'))
+    #for i in range(all_x.shape[1]):
+    #    if b[i]==c[i]:
+    #        all_x[:,i]=all_x[:,i]-all_x[:,i]
+    #    else:
+    #        all_x[:,i]=(all_x[:,i]-c[i])/(b[i]-c[i])
 
     print "Items Count: %d"%len(all_x)
     print "Dimention: %d"%len(all_x[0])
-    print "Counts: %s"%str(counts)
     return all_uids,all_x,all_y
 
 def get_all_item():
@@ -240,7 +218,7 @@ def output_simple_matrix(feature_length=10000):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -259,7 +237,7 @@ def output_simple_matrix(feature_length=10000):
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    #dump_user_vector(all_x,uids,'jd_user_simple')
+    dump_user_vector(all_x,uids,'jd_user_simple')
     return all_x,uids
 
 def output_simple_review_matrix(feature_length=10000):
@@ -273,7 +251,7 @@ def output_simple_review_matrix(feature_length=10000):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     total_count=users.count()
     #bar=progress_bar(total_count)
     finish_count=0
@@ -302,7 +280,7 @@ def output_shopping_tf_matrix(feature_length=3):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -337,7 +315,7 @@ def output_sentence_embedding_matrix(file_name1,file_name2):
     embedding=get_user_embedding(file_name1)
     #embedding=load_user_embedding(file_name1)
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -364,7 +342,7 @@ def output_graph_embedding_matrix(file_name1,file_name2,manual=False):
     from pymongo import Connection
     all_x=[]
     index=0
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     uids=[]
     for user in users.find():
         if file_name1=='jd_graph_normalize2':
@@ -374,7 +352,7 @@ def output_graph_embedding_matrix(file_name1,file_name2,manual=False):
     print 'Got uids'
     embedding=load_graph_embedding(set(uids),file_name1)
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -413,7 +391,7 @@ def output_goods_class_markov_matrix(manual=False):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -450,7 +428,7 @@ def output_goods_class_matrix(order=1):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -493,7 +471,7 @@ def output_review_matrix(order,feature_length=1000):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -531,7 +509,7 @@ def output_review_length_matrix(feature_length=1000):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -578,7 +556,7 @@ def output_review_star_matrix(feature_length=1000):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     total_count=users.count()
     bar=progress_bar(total_count)
     finish_count=0
@@ -609,7 +587,7 @@ def output_user_user_propagate_vectors(order):
     all_x=[]
     index=0
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     vectors=load_user_user_graph_propagate_vector(order)
     total_count=users.count()
     bar=progress_bar(total_count)
@@ -639,7 +617,7 @@ def output_review_embedding_matrix():
     from my_vector_reader import read_vectors
     all_x=[]
     #进度条相关参数
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     bar=progress_bar(users.count())
     finish_count=0
     uids=[]
@@ -668,7 +646,7 @@ def output_user_embedding_with_LINE():
     from pymongo import Connection
     from my_vector_reader import read_vectors
     all_x=[]
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     bar=progress_bar(users.count())
     finish_count=0
     uids=[]
@@ -690,7 +668,7 @@ def output_user_embedding_with_DeepWalk_cluster(ratio):
     from pymongo import Connection
     from my_vector_reader import simple_embedding_cluster_viewer
     all_x=[]
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     bar=progress_bar(users.count())
     finish_count=0
     uids=[]
@@ -724,7 +702,7 @@ def pca_process():
 
 def get_y(profile_key):
     from pymongo import Connection
-    users=Connection().jd.gender_users
+    users=Connection().jd.weibo_users
     all_y=dict()
     for user in users.find():
         value=user['profile'][profile_key]
@@ -793,7 +771,7 @@ def get_data(feature_length=1000):
 
 if __name__=='__main__':
     print '=================Data Generator================='
-    #output_simple_matrix(100)
+    output_simple_matrix(5000)
     #output_simple_review_matrix(100)
     #output_graph_embedding_matrix('graph_vectors', 'graph_embedding_from_shopping_sequence')
     #output_graph_embedding_matrix('graph_vectors_from_review','graph_embedding_from_review')

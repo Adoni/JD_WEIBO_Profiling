@@ -539,3 +539,8 @@ F1: 0.53 (+/- 0.03) || Accuracy: 0.54 (+/- 0.04) || Features:('user_embedding_fr
 --------------------
 Feature Count: 1
 F1: 0.64 (+/- 0.01) || Accuracy: 0.63 (+/- 0.01) || Features:('user_embedding_with_LINE_from_record_knn',)
+==============================
+2015-07-09 08:41:16.590803
+--------------------
+Feature Count: 1
+F1: 0.55 (+/- 0.04) || Accuracy: 0.56 (+/- 0.02) || Features:('user_embedding_from_path_with_attributes_0.00',)
