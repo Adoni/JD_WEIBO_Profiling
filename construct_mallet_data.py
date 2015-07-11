@@ -2,7 +2,7 @@ from settings import MATRIXES_DIR
 from data_generator import get_y
 from helper import balance
 import numpy
-def construct(name):
+def convert_to_svm_format(name):
     x=numpy.loadtxt(MATRIXES_DIR+name+'/x.matrix')
     uids=map(lambda line:line[:-1],open(MATRIXES_DIR+name+'/uids.vector'))
     all_y=get_y('gender')
@@ -20,4 +20,4 @@ def construct(name):
 
 
 if __name__=='__main__':
-    construct('jd_user_simple')
+    convert_to_svm_format('jd_user_simple')

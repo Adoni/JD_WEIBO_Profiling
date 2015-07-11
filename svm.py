@@ -93,7 +93,7 @@ def single_test(feature, attribute):
 
 def batch_test(attribute, min_size=1, max_size=1):
     all_features=[
-        #'jd_user_simple',
+        'jd_user_simple',
         #'jd_review_simple',
         #'jd_user_embedding',
         #'jd_user_embedding_with_item_class',
@@ -185,8 +185,8 @@ if __name__=='__main__':
     #single_test('new_user_embedding_from_path_with_attributes_0.20','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.00','gender')
     #single_test('user_embedding_from_path_with_attributes_0.80','gender')
-    single_test('jd_user_simple','gender')
-    #batch_test('gender',1,1)
+    #single_test('jd_user_simple','gender')
+    batch_test('gender',1,1)
     #batch_test('new_age',1,1)
     #batch_test('location',1,1)
     #test_embedding()
