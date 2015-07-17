@@ -56,17 +56,15 @@ def get_a_random_path_from_graph(graph,length):
     from my_progress_bar import progress_bar
     path=[]
     node_index=weighted_random_select(graph.degrees)
-    if node_index is None:
-        return []
     node=graph[node_index]
     path.append(node[0])
     bar=progress_bar(length-1)
     for i in range(length-1):
         neibor_index=weighted_random_select(node[1]['weights'])
-        if neibor_index is not None:
-            neibor=node[1]['neibors'][weighted_random_select(node[1]['weights'])]
+        neibor=node[1]['neibors'][weighted_random_select(node[1]['weights'])]
+        try:
             node_index=graph.index_of(neibor)
-        else:
+        except:
             node_index=weighted_random_select(graph.degrees)
         if node_index is None:
             i-=1
@@ -112,7 +110,7 @@ def deep_walk(total_nodes_count, attribute_ratio,attribute_type,insert_type):
             new_path.append(attributes[node])
     fout_with_attribute.write(' '.join(new_path)+'\n')
     print '\nEmbedding...'
-    command='./word2vec -train %s.data -output %s.data -cbow 0 -size 100 -window %d -negative 0 -hs 1 -sample 1e-3 \
+    command='~/word2vec/word2vec -train %s.data -output %s.data -cbow 0 -size 100 -window %d -negative 0 -hs 1 -sample 1e-3 \
     -threads 20 -binary 0'%(RAW_DATA_DIR+raw_file_name, VECTORS_DIR+embedding_file_name,5)
     print command
     os.system(command)
@@ -143,7 +141,7 @@ def output_matrix(file_name,folder):
     save_vector_to_text(vocab,'uids.vector',folder)
 
 if __name__=='__main__':
-    #for ratio in numpy.arange(start=0.00,stop=0.85,step=0.10):
-    #    deep_walk(2000000,ratio,'gender','old')
-    deep_walk(10000000,0.00,'gender','old')
+    for ratio in numpy.arange(start=0.00,stop=0.85,step=0.10):
+        deep_walk(10000000,ratio,'gender','old')
+    #deep_walk(10000000,0.80,'gender','old')
     #output_matrix('user_embedding_with_LINE_from_record_knn','user_embedding_with_LINE_from_record_knn')

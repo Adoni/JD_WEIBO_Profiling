@@ -20,6 +20,23 @@ def balance(data,target_index):
         balanced_data.append(d)
     return balanced_data
 
+def balance2(data,target_index):
+    from collections import Counter
+    import random
+    counts=Counter(map(lambda d:d[target_index],data))
+    min_count=min(counts.values())
+    ratio=dict()
+    for target in counts:
+        ratio[target]=0
+    balanced_data=[]
+    for d in data:
+        if ratio[d[target_index]]>=min_count:
+            continue
+        balanced_data.append(d)
+        ratio[d[target_index]]+=1
+    return balanced_data
+
+
 if __name__=='__main__':
     x=[1,2,3,4,5,6,7,8]
     y=[1,1,0,1,1,0,1,1]

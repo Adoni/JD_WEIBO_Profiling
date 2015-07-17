@@ -9,6 +9,7 @@ from tools import save_vector_to_text
 from tools import load_vector_from_text
 from tools import doc2vec_embedding
 from tools import load_doc2vec_embedding
+from collections import Counter
 
 def get_one_hot_vector(features, feature_map):
     vector=numpy.zeros((max(feature_map.values())+1))
@@ -19,7 +20,15 @@ def get_one_hot_vector(features, feature_map):
             continue
     if sum(vector)==0.0:
         return vector
-    #vector/=sum(vector)
+    return vector
+
+def get_one_hot_light_vector(features, feature_map):
+    vector=dict()
+    features=Counter(features)
+    for f in features:
+        if not f in feature_map:
+            continue
+        vector[feature_map[f]]=features[f]
     return vector
 
 def dump_user_vector(x,uids,folder):
@@ -32,6 +41,8 @@ def dump_user_vector(x,uids,folder):
 
 def dump_train_valid_test(x,y,uids):
     from helper import balance
+    from helper import balance2
+    from collections import Counter
     print 'Dump'
     data=zip(uids,x,y)
     data=filter(lambda d:not d[2]==-1,data)
@@ -54,6 +65,7 @@ def dump_train_valid_test(x,y,uids):
 
     print "Items Count: %d"%len(all_x)
     print "Dimention: %d"%len(all_x[0])
+    print 'Count: '+str(Counter(all_y))
     return all_uids,all_x,all_y
 
 def load_graph_embedding(uids,file_name):
@@ -82,30 +94,17 @@ def load_graph_embedding(uids,file_name):
     print 'Loaded graph embedding'
     return graph_embedding
 
-def load_review_words():
-    file_name='./review.feature'
-    review_words=dict()
-    review_words_class=dict()
-    total_index=0
-    for index, line in enumerate(open(file_name)):
-        line=line[:-1].split(':')
-        words=line[1]
-        for word in words.split(','):
-            review_words[word]=total_index
-            total_index+=1
-            review_words_class[word]=index
-    return review_words,review_words_class
-
 def load_user_user_graph_propagate_vector(order):
     vectors=pickle.load(open('./vectors%d.data'%order, 'rb'))
     return vectors
 
 def output_simple_matrix(feature_length=10000):
     from pymongo import Connection
+    from collections import Counter
     feature_map={}
     f=open('./features/product.feature').readlines()
     for i in range(0,len(f)):
-        if i>=feature_length:
+        if feature_length is not None and i>=feature_length:
             break
         feature_map[f[i].decode('utf8').split(' ')[0]]=i
     all_x=[]
@@ -121,8 +120,8 @@ def output_simple_matrix(feature_length=10000):
         for behavior in user['behaviors']:
             feature=str(behavior['item'])
             features.append(feature)
-        vector=get_one_hot_vector(features, feature_map)
-        if not vector.any():
+        vector=get_one_hot_light_vector(features, feature_map)
+        if len(vector)==0:
             continue
         all_x.append(vector)
         uids.append(user['_id'])
@@ -138,15 +137,17 @@ def output_simple_review_matrix(feature_length=10000):
     feature_map={}
     f=open('./features/review_word.feature').readlines()
     for i in range(0,len(f)):
-        if i>=feature_length:
+        if feature_length is not None and i>=feature_length:
             break
-        feature_map[f[i].decode('utf8').split(' ')[0]]=i
+        word=f[i].decode('utf8').split(' ')[0]
+        #feature_map[word]=word.encode('utf8')
+        feature_map[word]=i
     all_x=[]
     index=0
     #进度条相关参数
     users=Connection().jd.weibo_users
     total_count=users.count()
-    #bar=progress_bar(total_count)
+    bar=progress_bar(total_count)
     finish_count=0
     uids=[]
     for user in users.find():
@@ -155,17 +156,17 @@ def output_simple_review_matrix(feature_length=10000):
             for word in behavior['parsed_review']['review_general']:
                 feature=word
                 features.append(feature)
-        vector=get_one_hot_vector(features, feature_map)
-        if not vector.any():
+        vector=get_one_hot_light_vector(features, feature_map)
+        if len(vector)==0:
             continue
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
         finish_count+=1
-        #bar.draw(value=finish_count)
+        bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    return all_x,uids
-    #dump_user_vector(all_x,uids,'jd_review_simple')
+    #return all_x,uids
+    dump_user_vector(all_x,uids,'jd_review_simple')
     #return dump_train_valid_test(all_x, all_y, uids)
 
 def output_shopping_tf_matrix(feature_length=3):
@@ -543,10 +544,13 @@ def output_user_embedding_with_LINE():
     bar=progress_bar(users.count())
     finish_count=0
     uids=[]
-    vocab,embedding=read_vectors('/mnt/data1/adoni/jd_data/raw_data/user_embedding_with_LINE.data','utf8')
+    vocab,embedding=read_vectors('/mnt/data1/adoni/jd_data/raw_data/user_embedding_with_LINE_from_record_knn.data','utf8')
+    embedding=zip(vocab,embedding)
+    embedding=filter(lambda e:numpy.isfinite(e[1].sum()),embedding)
+    embedding=dict(embedding)
     for user in users.find():
-        if user['_id'] in vocab:
-            x=embedding[vocab.index(user['_id'])]
+        if user['_id'] in embedding:
+            x=embedding[user['_id']]
         else:
             print 'not in vocab'
             continue
@@ -594,41 +598,50 @@ def get_y(profile_key):
 def merge_different_vectors(vector_folders, profile_key):
     all_uids=[]
     all_x=[]
-    slow_folers={
-            'jd_user_simple':output_simple_matrix,
-            'jd_review_simple':output_simple_review_matrix,
-            }
+    light_folers=[
+            'jd_user_simple',
+            'jd_review_simple',
+            ]
     print ' '.join(vector_folders)
     for folder in vector_folders:
         print folder
-        if folder in slow_folers:
-            x,uids=slow_folers[folder]()
-            all_uids.append(uids)
-            all_x.append(x)
-            print 'done'
+        all_uids.append(load_vector_from_text('uids.vector',folder,'list'))
+        if folder in light_folers:
+            all_x.append(load_vector_from_text('x.matrix',folder,'LightArray'))
         else:
-            all_uids.append(load_vector_from_text('uids.vector',folder,'list'))
             all_x.append(load_vector_from_text('x.matrix',folder,'NParray'))
+    print 'Load Done'
+    if len(all_uids)==1:
+        all_y=get_y(profile_key)
+        all_y=map(lambda uid:all_y[uid], all_uids[0])
+        return dump_train_valid_test(all_x[0],all_y,all_uids[0])
     uids_order=all_uids[0]
     for uids in all_uids:
         uids_order=filter(lambda x:x in uids_order, uids)
     all_y=get_y(profile_key)
-    uids_order=filter(lambda x:x in uids_order, all_y.keys())
+    uids_order=filter(lambda x:x in all_y.keys(), uids_order)
     x=[]
     y=[]
-    for uid in uids_order:
+    bar=progress_bar(len(uids_order))
+    print '=============='
+    print len(all_uids)
+    print len(all_y)
+    print len(uids_order)
+    print '=============='
+    for finish_count,uid in enumerate(uids_order):
         tmp_x=[]
         for i,uids in enumerate(all_uids):
             index=uids.index(uid)
             tmp_x+=list(all_x[i][index])
         x.append(tmp_x)
         y.append(all_y[uid])
+        bar.draw(finish_count)
     return dump_train_valid_test(x,y,uids_order)
 
 if __name__=='__main__':
     print '=================Data Generator================='
-    output_simple_matrix(5000)
-    #output_simple_review_matrix(100)
+    #output_simple_matrix(None)
+    output_simple_review_matrix(None)
     #output_graph_embedding_matrix('graph_vectors', 'graph_embedding_from_shopping_sequence')
     #output_graph_embedding_matrix('graph_vectors_from_review','graph_embedding_from_review')
     #output_graph_embedding_matrix('jd_graph_normalize2','graph_embedding_from_user_product')

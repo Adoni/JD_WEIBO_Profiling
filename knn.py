@@ -30,7 +30,7 @@ def construct_knn():
                 continue
             score[uid2]=1.0*n/(len(shopping_record[uid1])+len(shopping_record[uid2])- n)
         score = sorted(score.items(), key=lambda d:d[1], reverse=True)
-        for edge in score[:100]:
+        for edge in score:
             #if edge[1]==1.00:
                 #print ''
                 #print uid1

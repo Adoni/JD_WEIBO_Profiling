@@ -58,11 +58,8 @@ def single_test(feature, attribute):
     none_attribute_uids=load_vector_from_text('uids_none_attributes.vector',feature,'list')
     none_attribute_uids=filter(lambda x:x in data[0],none_attribute_uids)
     alpha=0.2*len(data[0])/len(none_attribute_uids)
-    print alpha
-    print len(none_attribute_uids)
     train_data=[[],[]]
     test_data=[[],[]]
-    print zip(data[0],data[2])[:100]
     for index,uid in enumerate(data[0]):
         if uid in none_attribute_uids and random.random()<alpha:
         #if random.random()<0.2:
@@ -71,17 +68,13 @@ def single_test(feature, attribute):
         else:
             train_data[0].append(data[1][index])
             train_data[1].append(data[2][index])
-    print len(test_data[1])
-    print sum(test_data[1])
-    print len(train_data[1])
-    print sum(train_data[1])
+    print len(test_data[1]),sum(test_data[1]),len(train_data[1]),sum(train_data[1])
     clf=LogisticRegression()
     clf.fit(train_data[0], train_data[1])
     predicted_y=clf.predict(test_data[0])
     test_accuracy=accuracy_score(test_data[1],predicted_y)
     test_recall=recall_score(test_data[1],predicted_y)
     test_f1=f1_score(test_data[1],predicted_y)
-    print zip(test_data[1][:100],predicted_y[:100])
     print 'F1 of test data (%d %d): %0.2f'%(sum(test_data[1]),len(test_data[1])-sum(test_data[1]),test_f1)
     print 'Accuracy of test data (%d %d): %0.2f'%(sum(test_data[1]),len(test_data[1])-sum(test_data[1]),test_accuracy)
     predicted_y=clf.predict(train_data[0])
@@ -92,8 +85,9 @@ def single_test(feature, attribute):
     return [test_accuracy,test_recall,test_f1,train_accuracy,train_recall,train_f1]
 
 def batch_test(attribute, min_size=1, max_size=1):
+    print 'Attribute: %s'%attribute
     all_features=[
-        'jd_user_simple',
+        #'jd_user_simple',
         #'jd_review_simple',
         #'jd_user_embedding',
         #'jd_user_embedding_with_item_class',
@@ -137,8 +131,10 @@ def batch_test(attribute, min_size=1, max_size=1):
         #'user_embedding_from_DeepWalk_cluster',
         #'user_embedding_from_DeepWalk_cluster_0.40',
         #'user_embedding_from_DeepWalk_cluster_0.80',
-        #'user_embedding_with_LINE_from_record_knn',
+        #'user_embedding_with_LINE',
         'user_embedding_from_path_with_attributes_0.00',
+        #'user_embedding_from_path_with_attributes_0.10',
+        'user_embedding_from_path_with_attributes_0.80',
         ]
     fout=open('./results/Experiments_results_%s.result'%attribute,'a')
     fout.write('='*30+'\n')
@@ -184,9 +180,11 @@ if __name__=='__main__':
     #single_test('new_user_embedding_from_path_with_attributes_0.40','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.20','gender')
     #single_test('new_user_embedding_from_path_with_attributes_0.00','gender')
+    #single_test('user_embedding_from_path_with_attributes_0.00','gender')
     #single_test('user_embedding_from_path_with_attributes_0.80','gender')
     #single_test('jd_user_simple','gender')
-    batch_test('gender',1,1)
+    #batch_test('gender',1,1)
+    #batch_test('age',1,1)
     #batch_test('new_age',1,1)
     #batch_test('location',1,1)
-    #test_embedding()
+    test_embedding()

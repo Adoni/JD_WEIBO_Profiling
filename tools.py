@@ -1,17 +1,24 @@
 from settings import MATRIXES_DIR
+import numpy
 def save_vector_to_text(vector, file_name, folder):
     import os
     path=MATRIXES_DIR+folder+'/'
     print 'Try to save vector in '+path+file_name
     if not os.path.exists(path):
         os.makedirs(path)
-    if type(vector)==list:
+    if type(vector[0])==int or type(vector[0])==str or type(vector[0])==unicode:
         fout=open(path+file_name,'w')
         for item in vector:
             fout.write(str(item)+'\n')
         return
-    if type(vector)==numpy.ndarray:
+    if type(vector[0])==numpy.ndarray:
         numpy.savetxt(path+file_name,vector)
+        return
+    if type(vector[0])==dict:
+        fout=open(path+file_name,'w')
+        for item in vector:
+            item=' '.join(map(lambda x:str(x)+':'+str(item[x]),item.keys()))+'\n'
+            fout.write(item)
         return
     print 'Fail to save vector'
     print 'Vector type should be list or numpy.ndarray'
@@ -25,7 +32,25 @@ def load_vector_from_text(file_name, folder, file_type):
         vector=[line[:-1] for line in open(path+file_name)]
         return vector
     if file_type=='NParray':
-        vector=numpy.loadtxt(path+file_name)
+        vector=numpy.loadtxt(path+file_name,dtype='float64')
+        return vector
+    if file_type=='LightArray':
+        fout=open(path+file_name)
+        dimension=0
+        for line in fout:
+            line=line[:-1].split(' ')
+            line=map(lambda d:int(d.split(':')[0]),line)
+            if max(line)>dimension:
+                dimension=max(line)
+        print dimension
+        vector=[]
+        fout=open(path+file_name)
+        for line in fout:
+            line=line[:-1].split(' ')
+            v=numpy.zeros((dimension+1))
+            for item in map(lambda d:d.split(':'),line):
+                v[int(item[0])]=int(item[1])
+            vector.append(v)
         return vector
     print 'Fail to load vector'
     print 'Vector type should be list or numpy.ndarray'
@@ -90,3 +115,6 @@ def load_doc2vec_embedding(file_name):
     embedding=gensim.models.Word2Vec.load_word2vec_format('/mnt/data1/adoni/jd_data/'+file_name+'.data',binary=False)
     print 'Done'
     return embedding
+
+if __name__=='__main__':
+    load_vector_from_text('x.matrix','jd_user_simple','LightArray')
