@@ -2,6 +2,8 @@ from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import BaseNB
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.svm import LinearSVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -87,8 +89,8 @@ def single_test(feature, attribute):
 def batch_test(attribute, min_size=1, max_size=1):
     print 'Attribute: %s'%attribute
     all_features=[
-        #'jd_user_simple',
-        #'jd_review_simple',
+        'jd_user_simple',
+        'jd_review_simple',
         #'jd_user_embedding',
         #'jd_user_embedding_with_item_class',
         #'jd_user_embedding_from_review',
@@ -96,9 +98,7 @@ def batch_test(attribute, min_size=1, max_size=1):
         #'graph_embedding_from_review',
         #'graph_embedding_from_user_product',
         #'jd_good_Markov',
-        #'jd_good_class1',
-        #'jd_good_class2',
-        #'jd_good_class3',
+        #'jd_item_class_order_2',
         #'jd_review1',
         #'jd_review2',
         #'jd_review_star',
@@ -132,9 +132,9 @@ def batch_test(attribute, min_size=1, max_size=1):
         #'user_embedding_from_DeepWalk_cluster_0.40',
         #'user_embedding_from_DeepWalk_cluster_0.80',
         #'user_embedding_with_LINE',
-        'user_embedding_from_path_with_attributes_0.00',
+        #'user_embedding_from_path_with_attributes_0.00',
         #'user_embedding_from_path_with_attributes_0.10',
-        'user_embedding_from_path_with_attributes_0.80',
+        #'user_embedding_from_path_with_attributes_0.80',
         ]
     fout=open('./results/Experiments_results_%s.result'%attribute,'a')
     fout.write('='*30+'\n')
@@ -147,7 +147,10 @@ def batch_test(attribute, min_size=1, max_size=1):
             data=merge_different_vectors(features,attribute)
             #data=disarrange_data2(data)
             #data=disarrange_data(data)
-            clf=LogisticRegression()
+            #clf=LogisticRegression()
+            #clf=BaseNB()
+            #clf=GaussianNB()
+            clf=MultinomialNB()
             score_f1=cross_validation.cross_val_score(clf, data[1],data[2],cv=5,scoring='f1')
             score_accuracy=cross_validation.cross_val_score(clf, data[1],data[2],cv=5,scoring='accuracy')
             result='F1: %0.2f (+/- %0.2f) || Accuracy: %0.2f (+/- %0.2f) || Features:%s\n'%(score_f1.mean(), score_f1.std()*2, score_accuracy.mean(), score_accuracy.std()*2, str(features))
@@ -183,8 +186,8 @@ if __name__=='__main__':
     #single_test('user_embedding_from_path_with_attributes_0.00','gender')
     #single_test('user_embedding_from_path_with_attributes_0.80','gender')
     #single_test('jd_user_simple','gender')
-    #batch_test('gender',1,1)
+    batch_test('gender',1,1)
     #batch_test('age',1,1)
     #batch_test('new_age',1,1)
     #batch_test('location',1,1)
-    test_embedding()
+    #test_embedding()

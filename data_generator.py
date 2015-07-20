@@ -118,7 +118,7 @@ def output_simple_matrix(feature_length=10000):
     for user in users.find():
         features=[]
         for behavior in user['behaviors']:
-            feature=str(behavior['item'])
+            feature=str(int(behavior['item']))
             features.append(feature)
         vector=get_one_hot_light_vector(features, feature_map)
         if len(vector)==0:
@@ -310,10 +310,10 @@ def output_goods_class_markov_matrix(manual=False):
     return
     return dump_train_valid_test(all_x, all_y, 'jd_user_simple')
 
-def output_goods_class_matrix(order=1):
+def output_goods_class_matrix(order=0):
     from pymongo import Connection
     feature_map={}
-    f=open('./features/goods_class.feature'+str(order)).readlines()
+    f=open('./features/item_class_order_%d.feature'%order).readlines()
     tmp_feature=[]
     for index,line in enumerate(f):
         tmp_feature.append(line.decode('utf8').split(' ')[0])
@@ -342,9 +342,8 @@ def output_goods_class_matrix(order=1):
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    dump_user_vector(all_x,uids,'jd_good_class'+str(order))
+    dump_user_vector(all_x,uids,'jd_item_class_order_'+str(order))
     return
-    return dump_train_valid_test(all_x, all_y, 'jd_user_simple')
 
 def output_review_matrix(order,feature_length=1000):
     from pymongo import Connection
@@ -641,13 +640,13 @@ def merge_different_vectors(vector_folders, profile_key):
 if __name__=='__main__':
     print '=================Data Generator================='
     #output_simple_matrix(None)
-    output_simple_review_matrix(None)
+    #output_simple_review_matrix(None)
     #output_graph_embedding_matrix('graph_vectors', 'graph_embedding_from_shopping_sequence')
     #output_graph_embedding_matrix('graph_vectors_from_review','graph_embedding_from_review')
     #output_graph_embedding_matrix('jd_graph_normalize2','graph_embedding_from_user_product')
     #output_goods_class_matrix(1)
     #output_goods_class_matrix(2)
-    #output_goods_class_matrix(3)
+    output_goods_class_matrix(2)
     #output_goods_class_markov_matrix()
     #output_sentence_embedding_matrix('user_embedding_from_shopping_sequence','jd_user_embedding')
     #output_sentence_embedding_matrix('user_embedding_from_shopping_sequence_with_item_class','jd_user_embedding_with_item_class')

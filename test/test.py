@@ -33,7 +33,8 @@ def show_age():
         except:
             ages[int(age)]=1
     ages=sorted(ages.iteritems(), key=lambda d:d[0], reverse=False)
-    print ages
+    for age in ages:
+        print '%d %d'%(age[0],age[1])
 
 def insert_age_vector():
     from collections import Counter

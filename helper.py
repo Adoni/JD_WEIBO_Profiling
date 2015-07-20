@@ -36,8 +36,13 @@ def balance2(data,target_index):
         ratio[d[target_index]]+=1
     return balanced_data
 
+def output_mention_and_number():
+    mentions=get_mentions()
+    all_words=[line[:-1].decode('utf8').split(' ')[0] for line in open('./features/review_word.feature')]
+    fout=open('./mallet-2.0.7/mention_with_number.data','w')
+    for m in mentions:
+        if m in all_words and all_words.index(m)<4000:
+            fout.write('%s %d\n'%(m.encode('utf8'),all_words.index(m)))
 
 if __name__=='__main__':
-    x=[1,2,3,4,5,6,7,8]
-    y=[1,1,0,1,1,0,1,1]
-    print balance(zip(x,y),target_index=1)
+    output_mention_and_number()

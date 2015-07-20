@@ -2,21 +2,6 @@ from settings import MATRIXES_DIR
 from data_generator import get_y
 from helper import balance
 import numpy
-def convert_to_svm_format(name):
-    x=numpy.loadtxt(MATRIXES_DIR+name+'/x.matrix')
-    uids=map(lambda line:line[:-1],open(MATRIXES_DIR+name+'/uids.vector'))
-    all_y=get_y('gender')
-    y=map(lambda uid:all_y[uid],uids)
-    data=zip(uids,x,y)
-    data=filter(lambda d:not d[2]==-1, data)
-    data=balance(data,target_index=2)
-    fout=open(MATRIXES_DIR+'mallet/data.mallet','w')
-    for d in data:
-        #fout.write('%s %d'%(d[0],d[2]))
-        fout.write(str(d[2]))
-        for index,value in enumerate(d[1]):
-            fout.write(' %d:%0.8f'%(index,value))
-        fout.write('\n')
 
 def convert_to_mallet_format(name):
     from my_progress_bar import progress_bar
@@ -36,7 +21,7 @@ def convert_to_mallet_format(name):
     data=zip(uids,x,y)
     data=filter(lambda d:not d[2]==-1, data)
     data=balance(data,target_index=2)
-    fout=open(MATRIXES_DIR+'mallet/data.mallet','w')
+    fout=open(MATRIXES_DIR+'mallet/%s.mallet'%name,'w')
     bar=progress_bar(len(data))
     for index,d in enumerate(data):
         fout.write('%s %d %s\n'%(d[0],d[2],d[1]))
@@ -72,6 +57,6 @@ def construct_mallet_data(profile_key):
 
 
 if __name__=='__main__':
-    #convert_to_mallet_format('jd_user_simple')
-    convert_to_mallet_format('jd_review_simple')
+    convert_to_mallet_format('jd_user_simple')
+    #convert_to_mallet_format('jd_review_simple')
     #construct_mallet_data('gender')
