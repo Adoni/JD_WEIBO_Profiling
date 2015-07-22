@@ -757,3 +757,30 @@ F1: 0.87 (+/- 0.09) || Accuracy: 0.87 (+/- 0.08) || Features:('user_embedding_fr
 Feature Count: 1
 F1: 0.65 (+/- 0.09) || Accuracy: 0.64 (+/- 0.05) || Features:('user_embedding_from_path_with_attributes_0.00',)
 F1: 0.88 (+/- 0.07) || Accuracy: 0.87 (+/- 0.06) || Features:('user_embedding_from_path_with_attributes_0.80',)
+==============================
+2015-07-20 15:48:33.032910
+--------------------
+Feature Count: 1
+==============================
+2015-07-20 15:48:42.887503
+--------------------
+Feature Count: 1
+F1: 0.68 (+/- 0.05) || Accuracy: 0.65 (+/- 0.05) || Features:('jd_user_simple',)
+F1: 0.70 (+/- 0.05) || Accuracy: 0.69 (+/- 0.05) || Features:('jd_review_simple',)
+==============================
+2015-07-20 16:08:48.115808
+--------------------
+Feature Count: 1
+F1: 0.59 (+/- 0.29) || Accuracy: 0.64 (+/- 0.09) || Features:('jd_user_simple',)
+F1: 0.61 (+/- 0.20) || Accuracy: 0.64 (+/- 0.09) || Features:('jd_review_simple',)
+==============================
+2015-07-20 19:54:26.646198
+--------------------
+Feature Count: 1
+F1: 0.52 (+/- 0.25) || Accuracy: 0.59 (+/- 0.07) || Features:('jd_user_simple',)
+F1: 0.47 (+/- 0.24) || Accuracy: 0.56 (+/- 0.07) || Features:('jd_review_simple',)
+==============================
+2015-07-21 09:24:44.476260
+--------------------
+Feature Count: 1
+F1: 0.67 (+/- 0.00) || Accuracy: 0.50 (+/- 0.00) || Features:('jd_user_simple',)

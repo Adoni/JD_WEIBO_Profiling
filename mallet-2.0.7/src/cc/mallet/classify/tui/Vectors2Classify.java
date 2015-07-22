@@ -266,14 +266,6 @@ public abstract class Vectors2Classify
 				testFileIlist = InstanceList.load (new File(testFile.value));
 				logger.info("Testing vectors loaded from " + testFile.value);
 				
-				if (!testFileIlist.getPipe().alphabetsMatch(trainingFileIlist.getPipe())) {
-					throw new RuntimeException( 
-							trainingFileIlist.getPipe().getDataAlphabet() + "\n" 
-							+ testFileIlist.getPipe().getDataAlphabet() + "\n" 
-							+ trainingFileIlist.getPipe().getTargetAlphabet() + "\n" 
-							+ testFileIlist.getPipe().getTargetAlphabet() + "\n"
-							+ "Training and testing alphabets don't match!\n");
-				}
 			}
 
 			if (validationFile.wasInvoked()){
