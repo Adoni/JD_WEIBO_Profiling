@@ -43,6 +43,58 @@ def output_mention_and_number():
     for m in mentions:
         if m in all_words and all_words.index(m)<4000:
             fout.write('%s %d\n'%(m.encode('utf8'),all_words.index(m)))
+<<<<<<< HEAD
 
 if __name__=='__main__':
     output_mention_and_number()
+=======
+
+def output_mention_and_count(attribute):
+    from pymongo import Connection
+    from my_progress_bar import progress_bar
+    from collections import Counter
+
+    mentions=get_mentions()
+    mentions=dict(zip(mentions,[[0,0,0] for mention in mentions]))
+    users=Connection().jd.weibo_users
+    bar=progress_bar(users.count())
+    values=[]
+    for index,user in enumerate(users.find()):
+        bar.draw(index)
+        try:
+            f=user['profile'][attribute].index(1)
+        except:
+            continue
+        values.append(f)
+    values=Counter(values)
+    min_value=min(values.values())
+    for key in values:
+        values[key]=min_value*1.0/values[key]
+    print values
+
+    bar=progress_bar(users.count())
+    for index,user in enumerate(users.find()):
+        try:
+            f=user['profile'][attribute].index(1)
+        except:
+            continue
+        for behavior in user['behaviors']:
+            for w in behavior['parsed_review']['review_general']:
+                if w in mentions:
+                    mentions[w][f]+=1
+        bar.draw(index)
+    mentions=sorted(mentions.items(),key=lambda d:sum(d[1]),reverse=True)
+    print ''
+    for m in mentions:
+        if sum(m[1])<1000:
+            break
+        for i in range(len(m[1])):
+            m[1][i]='%0.1f'%(m[1][i]*values[i])
+        print m[0].encode('utf8'),m[1]
+
+
+if __name__=='__main__':
+    output_mention_and_count('gender')
+    output_mention_and_count('age')
+    output_mention_and_count('location')
+>>>>>>> f82e8d5f92eb2574d9101b29d7d69ce90d10ebc1

@@ -136,8 +136,11 @@ public class MaxEnt extends Classifier implements Serializable
 		// Make sure the feature vector's feature dictionary matches
 		// what we are expecting from our data pipe (and thus our notion
 		// of feature probabilities.
+<<<<<<< HEAD
 		assert (fv.getAlphabet ()
 				== this.instancePipe.getDataAlphabet ());
+=======
+>>>>>>> f82e8d5f92eb2574d9101b29d7d69ce90d10ebc1
 
 		// Include the feature weights according to each label
 		for (int li = 0; li < numLabels; li++) {

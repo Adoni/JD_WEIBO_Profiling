@@ -31,12 +31,15 @@ def get_one_hot_light_vector(features, feature_map):
         vector[feature_map[f]]=features[f]
     return vector
 
-def dump_user_vector(x,uids,folder):
+def dump_user_vector(x,uids,folder,dimention=0):
+    print dimention
+    print type(x[0])
+    assert dimention>0 or type(x[0])!=dict
     print 'DUMP DATA'
     print 'X dimention:'+str(len(x[0]))
     if not len(x)==len(uids):
         raise Exception('x not equal with uids')
-    save_vector_to_text(x,'x.matrix',folder)
+    save_vector_to_text(x,'x.matrix',folder,dimention=dimention)
     save_vector_to_text(uids,'uids.vector',folder)
 
 def dump_train_valid_test(x,y,uids):
@@ -129,7 +132,7 @@ def output_simple_matrix(feature_length=10000):
         finish_count+=1
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
-    dump_user_vector(all_x,uids,'jd_user_simple')
+    dump_user_vector(all_x,uids,'jd_user_simple',dimention=len(feature_map))
     return all_x,uids
 
 def output_simple_review_matrix(feature_length=10000):
@@ -157,8 +160,11 @@ def output_simple_review_matrix(feature_length=10000):
                 feature=word
                 features.append(feature)
         vector=get_one_hot_light_vector(features, feature_map)
+        #vector=get_one_hot_vector(features, feature_map)
         if len(vector)==0:
             continue
+        #if not vector.any():
+        #    continue
         all_x.append(vector)
         uids.append(user['_id'])
         index+=1
@@ -166,7 +172,7 @@ def output_simple_review_matrix(feature_length=10000):
         bar.draw(value=finish_count)
     all_x=numpy.array(all_x)
     #return all_x,uids
-    dump_user_vector(all_x,uids,'jd_review_simple')
+    dump_user_vector(all_x,uids,'jd_review_simple',dimention=len(feature_map))
     #return dump_train_valid_test(all_x, all_y, uids)
 
 def output_shopping_tf_matrix(feature_length=3):
@@ -646,7 +652,11 @@ if __name__=='__main__':
     #output_graph_embedding_matrix('jd_graph_normalize2','graph_embedding_from_user_product')
     #output_goods_class_matrix(1)
     #output_goods_class_matrix(2)
+<<<<<<< HEAD
     output_goods_class_matrix(2)
+=======
+    #output_goods_class_matrix(2)
+>>>>>>> f82e8d5f92eb2574d9101b29d7d69ce90d10ebc1
     #output_goods_class_markov_matrix()
     #output_sentence_embedding_matrix('user_embedding_from_shopping_sequence','jd_user_embedding')
     #output_sentence_embedding_matrix('user_embedding_from_shopping_sequence_with_item_class','jd_user_embedding_with_item_class')

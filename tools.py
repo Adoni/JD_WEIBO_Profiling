@@ -1,6 +1,6 @@
 from settings import MATRIXES_DIR
 import numpy
-def save_vector_to_text(vector, file_name, folder):
+def save_vector_to_text(vector, file_name, folder,dimention=0):
     import os
     path=MATRIXES_DIR+folder+'/'
     print 'Try to save vector in '+path+file_name
@@ -16,6 +16,7 @@ def save_vector_to_text(vector, file_name, folder):
         return
     if type(vector[0])==dict:
         fout=open(path+file_name,'w')
+        fout.write(str(dimention)+'\n')
         for item in vector:
             item=' '.join(map(lambda x:str(x)+':'+str(item[x]),item.keys()))+'\n'
             fout.write(item)
@@ -35,16 +36,10 @@ def load_vector_from_text(file_name, folder, file_type):
         vector=numpy.loadtxt(path+file_name,dtype='float64')
         return vector
     if file_type=='LightArray':
-        fout=open(path+file_name)
-        dimension=0
-        for line in fout:
-            line=line[:-1].split(' ')
-            line=map(lambda d:int(d.split(':')[0]),line)
-            if max(line)>dimension:
-                dimension=max(line)
-        print dimension
+        fin=open(path+file_name)
+        dimension=int(fin.readline()[:-1])
         vector=[]
-        fout=open(path+file_name)
+        fin=open(path+file_name)
         for line in fout:
             line=line[:-1].split(' ')
             v=numpy.zeros((dimension+1))

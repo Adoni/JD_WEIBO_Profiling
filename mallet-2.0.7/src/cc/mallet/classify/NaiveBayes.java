@@ -146,8 +146,11 @@ public class NaiveBayes extends Classifier implements Serializable
     // Make sure the feature vector's feature dictionary matches
     // what we are expecting from our data pipe (and thus our notion
     // of feature probabilities.
+<<<<<<< HEAD
     assert (instancePipe == null
             || fv.getAlphabet () == instancePipe.getDataAlphabet ());
+=======
+>>>>>>> f82e8d5f92eb2574d9101b29d7d69ce90d10ebc1
     int fvisize = fv.numLocations();
 
     prior.addLogProbabilities (scores);

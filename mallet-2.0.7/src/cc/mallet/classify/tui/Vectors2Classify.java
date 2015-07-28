@@ -266,6 +266,7 @@ public abstract class Vectors2Classify
 				testFileIlist = InstanceList.load (new File(testFile.value));
 				logger.info("Testing vectors loaded from " + testFile.value);
 				
+<<<<<<< HEAD
 				if (!testFileIlist.getPipe().alphabetsMatch(trainingFileIlist.getPipe())) {
 					throw new RuntimeException( 
 							trainingFileIlist.getPipe().getDataAlphabet() + "\n" 
@@ -274,6 +275,8 @@ public abstract class Vectors2Classify
 							+ testFileIlist.getPipe().getTargetAlphabet() + "\n"
 							+ "Training and testing alphabets don't match!\n");
 				}
+=======
+>>>>>>> f82e8d5f92eb2574d9101b29d7d69ce90d10ebc1
 			}
 
 			if (validationFile.wasInvoked()){
@@ -408,6 +411,10 @@ public abstract class Vectors2Classify
 				System.out.println ("Trial " + trialIndex + " Training " + trainer + " with "+ilists[0].size()+" instances");
 				if (unlabeledProportionOption.value > 0)
 					ilists[0].hideSomeLabels(unlabeledIndices);
+<<<<<<< HEAD
+=======
+				System.out.println ("Here~~~");
+>>>>>>> f82e8d5f92eb2574d9101b29d7d69ce90d10ebc1
 				Classifier classifier = trainer.train (ilists[0]);
 				if (unlabeledProportionOption.value > 0)
 					ilists[0].unhideAllLabels();

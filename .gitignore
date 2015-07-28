@@ -3,6 +3,7 @@
 *.feature
 *.mallet
 features/*
+mallet/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -62,7 +62,7 @@ def insert_age_vector():
             profile['age']=age_vec
             users.update({'_id':user['_id']},{'$set':{'profile':profile}})
             continue
-        if age<1988:
+        if age<1987:
             age_vec=[1,0]
         else:
             age_vec=[0,1]
@@ -73,5 +73,5 @@ def insert_age_vector():
 
 if __name__=='__main__':
     #show_location()
-    show_age()
-    #insert_age_vector()
+    #show_age()
+    insert_age_vector()
