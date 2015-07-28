@@ -646,7 +646,7 @@ def merge_different_vectors(vector_folders, profile_key):
 if __name__=='__main__':
     print '=================Data Generator================='
     #output_simple_matrix(None)
-    output_simple_review_matrix(5000)
+    output_simple_review_matrix(None)
     #output_graph_embedding_matrix('graph_vectors', 'graph_embedding_from_shopping_sequence')
     #output_graph_embedding_matrix('graph_vectors_from_review','graph_embedding_from_review')
     #output_graph_embedding_matrix('jd_graph_normalize2','graph_embedding_from_user_product')

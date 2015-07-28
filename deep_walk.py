@@ -95,7 +95,8 @@ def deep_walk(total_nodes_count, attribute_ratio,attribute_type,insert_type):
     none_attributes=filter(lambda uid:'None' in attributes[uid], attributes.keys())
     attributes=dict(filter(lambda x:'None' not in x[1], attributes.items()))
     print 'Get attributes done'
-    graph=Graph(RAW_DATA_DIR+'knn_graph_from_shopping_record.data')
+    #graph=Graph(RAW_DATA_DIR+'knn_graph_from_shopping_record.data')
+    graph=Graph(RAW_DATA_DIR+'knn_graph_from_review.data')
     graph.to_list_graph()
     print 'Get graph done'
     path=get_a_random_path_from_graph(graph, total_nodes_count)
@@ -141,7 +142,7 @@ def output_matrix(file_name,folder):
     save_vector_to_text(vocab,'uids.vector',folder)
 
 if __name__=='__main__':
-    for ratio in numpy.arange(start=0.00,stop=0.85,step=0.10):
-        deep_walk(10000000,ratio,'gender','old')
-    #deep_walk(10000000,0.80,'gender','old')
+    #for ratio in numpy.arange(start=0.00,stop=0.85,step=0.10):
+    #    deep_walk(10000000,ratio,'gender','old')
+    deep_walk(10000000,0.0,'gender','old')
     #output_matrix('user_embedding_with_LINE_from_record_knn','user_embedding_with_LINE_from_record_knn')

@@ -65,7 +65,7 @@ def output_matrix(file_name,folder):
 
 def main():
     #for beta in [0.0,0.3,0.6,0.9]:
-    for beta in [0.8]:
+    for beta in [0.5]:
         for ratio in numpy.arange(0.00,0.85,0.10):
             embedding_with_labels(ratio,beta)
 
@@ -74,4 +74,5 @@ if __name__=='__main__':
     main()
     import os
     os.system('python svm.py')
+    print 'Done'
     #review_deep_walk()

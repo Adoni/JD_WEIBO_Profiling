@@ -36,7 +36,7 @@ def convert_to_mallet_format(name):
             'jd_review_simple'
             ]
     if name in light_list:
-        x=[(''+line[:-1].replace(' ',' ')).replace(':',' ') for line in open(MATRIXES_DIR+name+'/x.matrix')]
+        x=[line[:-1].replace(':',' ') for line in open(MATRIXES_DIR+name+'/x.matrix')]
         x=x[1:]
     else:
         x=numpy.loadtxt(MATRIXES_DIR+name+'/x.matrix')
@@ -59,6 +59,7 @@ def convert_to_mallet_format_with_filter(name):
             ]
     if name in light_list:
         x=[map(lambda l:l.split(':'),line[:-1].split(' ')) for line in open(MATRIXES_DIR+name+'/x.matrix')]
+        dimention=int(x[0][0][0])
         x=x[1:]
     else:
         x=numpy.loadtxt(MATRIXES_DIR+name+'/x.matrix')
@@ -81,10 +82,10 @@ def convert_to_mallet_format_with_filter(name):
         for c in test[i][1]:
             if c[0] not in train_keys:
                 test[i][1].remove(c)
-    output_date_set(train,'review_train')
+    output_date_set(train,'review_train',dimention=dimention)
     output_date_set(test,'review_test')
 
-def output_date_set(data,name='data'):
+def output_date_set(data,name='data',dimention=-1):
     fout=open(MATRIXES_DIR+'mallet/%s.mallet'%name,'w')
     bar=progress_bar(len(data))
     for index,d in enumerate(data):
@@ -92,6 +93,12 @@ def output_date_set(data,name='data'):
         if d[1]==[]:
             continue
         s=' '.join(map(lambda c:'%s %s'%(c[0],c[1]),d[1]))
+        if random.random()<1.5:
+            if dimention>0:
+                if d[2]==0:
+                    s+=' %d 9'%dimention
+                else:
+                    s+=' %d 9'%(dimention+1)
         fout.write('%s %d %s\n'%(d[0],d[2],s))
         bar.draw(index)
 

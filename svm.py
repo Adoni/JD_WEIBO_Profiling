@@ -91,8 +91,8 @@ def batch_test(attribute, min_size=1, max_size=1):
     print 'Attribute: %s'%attribute
     print '\n'
     all_features=[
-        'jd_user_simple',
-        'jd_review_simple',
+        #'jd_user_simple',
+        #'jd_review_simple',
         #'jd_user_embedding',
         #'jd_user_embedding_with_item_class',
         #'jd_user_embedding_from_review',
@@ -149,10 +149,10 @@ def batch_test(attribute, min_size=1, max_size=1):
             data=merge_different_vectors(features,attribute)
             #data=disarrange_data2(data)
             #data=disarrange_data(data)
-            #clf=LogisticRegression()
+            clf=LogisticRegression()
             #clf=BaseNB()
             #clf=GaussianNB()
-            clf=SVC()
+            #clf=SVC()
             #clf=MultinomialNB()
             score_f1=cross_validation.cross_val_score(clf, data[1],data[2],cv=5,scoring='f1')
             score_accuracy=cross_validation.cross_val_score(clf, data[1],data[2],cv=5,scoring='accuracy')
@@ -160,7 +160,7 @@ def batch_test(attribute, min_size=1, max_size=1):
             print result
             fout.write(result)
 
-def test_embedding():
+def test_embedding(attribute):
     for beta in [0.5]:
     #for beta in [0.0,0.3,0.6,0.9]:
         x=[]
@@ -169,11 +169,11 @@ def test_embedding():
             print ratio
             tmpy=[]
             for i in range(1):
-                tmpy.append(single_test('user_embedding_from_path_and_labels_%0.2f_%0.2f'%(ratio,beta),'gender'))
+                tmpy.append(single_test('user_embedding_from_path_and_labels_%0.2f_%0.2f'%(ratio,beta),attribute))
                 #tmpy.append(single_test('user_embedding_from_path_with_attributes_%0.2f'%(ratio),'gender'))
             x.append(ratio)
             y.append(list(numpy.average(tmpy,axis=0)))
-        fout=open('./results/single.result','a')
+        fout=open('./results/single.result.'+str(attribute),'a')
         fout.write(str(beta)+'\n')
         fout.write(str(x)+'\n')
         fout.write(str(y)+'\n')
@@ -188,11 +188,16 @@ if __name__=='__main__':
     #single_test('new_user_embedding_from_path_with_attributes_0.00','gender')
     #single_test('user_embedding_from_path_with_attributes_0.00','gender')
     #single_test('user_embedding_from_path_with_attributes_0.80','gender')
+    #single_test('user_embedding_from_path_with_attributes_0.00','age')
     #single_test('jd_user_simple','gender')
-    batch_test('gender',1,1)
-    batch_test('age',1,1)
-    batch_test('location',1,1)
+    #single_test('jd_user_simple','age')
+    #single_test('jd_user_simple','location')
+    #batch_test('gender',1,1)
+    #batch_test('age',1,1)
+    #batch_test('location',1,1)
     #batch_test('age',1,1)
     #batch_test('new_age',1,1)
     #batch_test('location',1,1)
-    #test_embedding()
+    test_embedding('gender')
+    test_embedding('age')
+    test_embedding('location')
